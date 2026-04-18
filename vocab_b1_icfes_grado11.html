@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulario B1 – ICFES | Grado 11° | I.E. José María Herrán</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Mono:wght@400;500&display=swap');
+
+  :root {
+    --azul:    #003366;
+    --naranja: #f0a500;
+    --gris:    #4b5563;
+    --fondo:   #f4f7f9;
+    --blanco2: #e8edf2;
+    --blanco:  #ffffff;
+    --borde:   #e5e7eb;
+    --verde:   #16a34a;
+    --rojo:    #dc2626;
+    --sombra:  0 2px 12px rgba(0,51,102,.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--fondo);
+    color: var(--gris);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--azul) 0%, #005599 100%);
+    color: #fff;
+    padding: 18px 16px 14px;
+    text-align: center;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 3px 16px rgba(0,0,0,.25);
+  }
+  .header-logo { font-size: .68rem; letter-spacing: .08em; opacity: .75; text-transform: uppercase; }
+  header h1 { font-size: 1.35rem; font-weight: 900; line-height: 1.2; }
+  header h1 span { color: var(--naranja); }
+  .header-sub { font-size: .75rem; opacity: .8; margin-top: 2px; }
+  .badge-icfes {
+    display: inline-block; margin-top: 6px;
+    background: var(--naranja); color: var(--azul);
+    font-weight: 900; font-size: .7rem; letter-spacing: .1em;
+    padding: 2px 10px; border-radius: 20px; text-transform: uppercase;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--azul);
+    color: #fff; font-size: .78rem;
+    display: flex; justify-content: center; gap: 20px;
+    padding: 6px 16px;
+    border-bottom: 3px solid var(--naranja);
+  }
+  .stat-item { display: flex; align-items: center; gap: 4px; }
+  .stat-num  { font-weight: 900; color: var(--naranja); }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    display: flex; background: var(--blanco);
+    border-bottom: 2px solid var(--borde);
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 1; min-width: 80px;
+    padding: 12px 8px; border: none; background: none; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: .82rem;
+    color: var(--gris); border-bottom: 3px solid transparent;
+    transition: all .2s; white-space: nowrap;
+  }
+  .tab-btn.active {
+    color: var(--azul); border-bottom-color: var(--naranja);
+    background: #f0f6ff;
+  }
+  .tab-btn:hover:not(.active) { background: var(--blanco2); }
+
+  /* ── CONTROLS ── */
+  .controls {
+    background: var(--blanco);
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--borde);
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  }
+  .search-wrap {
+    flex: 1; min-width: 180px; position: relative;
+  }
+  .search-wrap input {
+    width: 100%; padding: 9px 12px 9px 36px;
+    border: 2px solid var(--borde); border-radius: 10px;
+    font-family: 'Nunito', sans-serif; font-size: .9rem;
+    background: var(--fondo); color: var(--gris);
+    transition: border .2s;
+  }
+  .search-wrap input:focus { outline: none; border-color: var(--azul); }
+  .search-icon {
+    position: absolute; left: 10px; top: 50%;
+    transform: translateY(-50%); font-size: 1rem; opacity: .5;
+  }
+  .cat-select {
+    padding: 9px 12px; border: 2px solid var(--borde); border-radius: 10px;
+    font-family: 'Nunito', sans-serif; font-size: .85rem;
+    background: var(--fondo); color: var(--gris); cursor: pointer;
+    max-width: 200px;
+  }
+  .cat-select:focus { outline: none; border-color: var(--azul); }
+  .count-badge {
+    background: var(--azul); color: #fff;
+    font-size: .78rem; font-weight: 800; padding: 4px 10px;
+    border-radius: 20px; white-space: nowrap;
+  }
+
+  /* ── SECTION: LISTA ── */
+  #secLista { padding: 14px 12px; }
+
+  .cat-group { margin-bottom: 20px; }
+  .cat-header {
+    display: flex; align-items: center; gap: 10px;
+    background: linear-gradient(90deg, var(--azul) 0%, #005599 100%);
+    color: #fff; padding: 10px 14px; border-radius: 10px 10px 0 0;
+    cursor: pointer; user-select: none;
+  }
+  .cat-header .cat-icon { font-size: 1.2rem; }
+  .cat-header .cat-name { font-weight: 900; font-size: .95rem; flex: 1; }
+  .cat-header .cat-count {
+    background: var(--naranja); color: var(--azul);
+    font-size: .72rem; font-weight: 900; padding: 2px 8px; border-radius: 12px;
+  }
+  .cat-toggle { font-size: .85rem; transition: transform .3s; }
+  .cat-header.collapsed .cat-toggle { transform: rotate(-90deg); }
+
+  .word-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 8px; padding: 10px;
+    background: var(--blanco); border: 1px solid var(--borde);
+    border-top: none; border-radius: 0 0 10px 10px;
+  }
+  .word-card {
+    background: var(--fondo); border: 1px solid var(--borde);
+    border-radius: 10px; padding: 10px 12px;
+    transition: transform .15s, box-shadow .15s;
+    cursor: default; position: relative;
+  }
+  .word-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra);
+    border-color: var(--naranja);
+  }
+  .word-card .word-en {
+    font-weight: 800; color: var(--azul); font-size: .95rem;
+  }
+  .word-card .word-pos {
+    display: inline-block; background: var(--naranja); color: var(--azul);
+    font-size: .62rem; font-weight: 900; padding: 1px 7px;
+    border-radius: 8px; margin-left: 6px; letter-spacing: .05em;
+    text-transform: uppercase; vertical-align: middle;
+  }
+  .word-card .word-es {
+    color: var(--gris); font-size: .85rem; margin-top: 2px; font-weight: 600;
+  }
+  .word-card .word-ex {
+    font-size: .78rem; color: #6b7280; margin-top: 5px;
+    font-style: italic; border-top: 1px solid var(--borde);
+    padding-top: 5px; line-height: 1.4;
+  }
+  .word-card .word-ex em { color: var(--azul); font-style: normal; font-weight: 700; }
+
+  /* ── SECTION: FLASHCARDS ── */
+  #secFlash {
+    padding: 16px 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+  }
+  .flash-progress-bar {
+    width: 100%; max-width: 500px;
+    background: var(--borde); border-radius: 10px; height: 8px; overflow: hidden;
+  }
+  .flash-progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--naranja), #f59e0b);
+    border-radius: 10px; transition: width .4s ease;
+  }
+  .flash-meta {
+    font-size: .82rem; font-weight: 700; color: var(--gris);
+    text-align: center;
+  }
+  .flash-meta span { color: var(--azul); font-weight: 900; }
+
+  .flashcard-scene {
+    width: 100%; max-width: 480px; height: 260px;
+    perspective: 1000px; cursor: pointer;
+  }
+  .flashcard-inner {
+    width: 100%; height: 100%;
+    position: relative; transform-style: preserve-3d;
+    transition: transform .5s cubic-bezier(.4,0,.2,1);
+  }
+  .flashcard-inner.flipped { transform: rotateY(180deg); }
+  .flashcard-face {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; border-radius: 18px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 24px; text-align: center;
+    box-shadow: 0 8px 30px rgba(0,51,102,.18);
+  }
+  .flashcard-front {
+    background: linear-gradient(135deg, var(--azul) 0%, #0055aa 100%);
+    color: #fff;
+  }
+  .flashcard-front .fc-label {
+    font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; opacity: .7;
+    margin-bottom: 10px;
+  }
+  .flashcard-front .fc-word {
+    font-size: 2rem; font-weight: 900; line-height: 1.1;
+  }
+  .flashcard-front .fc-pos {
+    background: var(--naranja); color: var(--azul);
+    font-size: .7rem; font-weight: 900; padding: 3px 10px;
+    border-radius: 12px; margin-top: 8px; text-transform: uppercase;
+  }
+  .flashcard-front .fc-cat {
+    font-size: .72rem; opacity: .65; margin-top: 10px;
+  }
+  .flashcard-back {
+    background: var(--blanco); transform: rotateY(180deg);
+    border: 3px solid var(--naranja);
+  }
+  .flashcard-back .fc-trans {
+    font-size: 1.6rem; font-weight: 900; color: var(--azul); line-height: 1.2;
+  }
+  .flashcard-back .fc-ex {
+    font-size: .82rem; color: var(--gris); font-style: italic;
+    margin-top: 12px; line-height: 1.5; border-top: 1px solid var(--borde);
+    padding-top: 10px;
+  }
+  .flashcard-back .fc-hint {
+    font-size: .68rem; color: #9ca3af; margin-top: 8px;
+  }
+  .fc-tap-hint {
+    font-size: .72rem; color: #9ca3af; text-align: center;
+  }
+  .flash-btns {
+    display: flex; gap: 12px; width: 100%; max-width: 480px; justify-content: center;
+  }
+  .btn {
+    padding: 10px 22px; border: none; border-radius: 10px; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .9rem;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+  .btn:active { transform: translateY(0); }
+  .btn-prev { background: var(--blanco2); color: var(--gris); border: 2px solid var(--borde); }
+  .btn-next { background: var(--azul); color: #fff; }
+  .btn-shuffle { background: var(--naranja); color: var(--azul); }
+  .btn-reset  { background: var(--blanco2); color: var(--gris); border: 2px solid var(--borde); }
+
+  /* ── SECTION: QUIZ ── */
+  #secQuiz { padding: 16px 14px; }
+
+  .quiz-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+  }
+  .quiz-score-box {
+    background: var(--azul); color: #fff;
+    padding: 6px 14px; border-radius: 12px; font-size: .82rem; font-weight: 800;
+  }
+  .quiz-score-box .qs-ok  { color: #86efac; }
+  .quiz-score-box .qs-fail{ color: #fca5a5; }
+  .quiz-progress { font-size: .82rem; font-weight: 700; color: var(--gris); }
+
+  .quiz-card {
+    background: var(--blanco); border: 2px solid var(--borde);
+    border-radius: 16px; padding: 20px; max-width: 600px;
+    margin: 0 auto; box-shadow: var(--sombra);
+  }
+  .quiz-type-badge {
+    display: inline-block; background: var(--blanco2); color: var(--azul);
+    font-size: .68rem; font-weight: 900; text-transform: uppercase;
+    letter-spacing: .08em; padding: 2px 8px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .quiz-question {
+    font-size: 1.15rem; font-weight: 800; color: var(--azul);
+    margin-bottom: 16px; line-height: 1.3;
+  }
+  .quiz-question .highlight-word {
+    background: var(--naranja); color: var(--azul);
+    padding: 1px 8px; border-radius: 6px;
+  }
+  .quiz-context {
+    font-size: .82rem; color: #6b7280; font-style: italic;
+    margin-bottom: 14px; padding: 8px 12px;
+    background: var(--fondo); border-radius: 8px; border-left: 3px solid var(--naranja);
+  }
+  .options-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .opt-btn {
+    padding: 11px 12px; border: 2px solid var(--borde);
+    border-radius: 10px; background: var(--fondo); cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: .88rem;
+    color: var(--gris); text-align: left; transition: all .15s;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--azul); background: #eff6ff; }
+  .opt-btn.correct { background: #dcfce7; border-color: var(--verde); color: var(--verde); }
+  .opt-btn.wrong   { background: #fee2e2; border-color: var(--rojo);  color: var(--rojo);  }
+  .opt-btn:disabled { cursor: default; }
+
+  .quiz-feedback {
+    margin-top: 14px; padding: 10px 14px;
+    border-radius: 10px; font-size: .88rem; font-weight: 700;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok   { background: #dcfce7; color: var(--verde); }
+  .quiz-feedback.fail { background: #fee2e2; color: var(--rojo); }
+
+  .btn-next-q {
+    display: none; margin-top: 14px; width: 100%;
+    background: var(--azul); color: #fff; padding: 12px;
+    border: none; border-radius: 10px; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .95rem;
+    transition: all .2s;
+  }
+  .btn-next-q.show { display: block; }
+  .btn-next-q:hover { background: #005599; transform: translateY(-1px); }
+
+  .quiz-result {
+    text-align: center; background: var(--blanco);
+    border: 2px solid var(--naranja); border-radius: 16px;
+    padding: 30px 20px; max-width: 480px; margin: 0 auto;
+    box-shadow: var(--sombra);
+  }
+  .result-emoji { font-size: 3rem; margin-bottom: 10px; }
+  .result-title { font-size: 1.4rem; font-weight: 900; color: var(--azul); }
+  .result-score { font-size: 2.2rem; font-weight: 900; color: var(--naranja); }
+  .result-msg { font-size: .88rem; color: var(--gris); margin: 8px 0 16px; }
+  .btn-restart { background: var(--azul); color: #fff; border: none; }
+
+  /* ── EMPTY ── */
+  .empty-state {
+    text-align: center; padding: 50px 20px;
+    color: #9ca3af; font-size: .95rem;
+  }
+  .empty-state .big { font-size: 2.5rem; margin-bottom: 10px; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 18px 16px;
+    font-size: .72rem; color: #9ca3af;
+    border-top: 1px solid var(--borde);
+    background: var(--blanco); margin-top: 30px;
+  }
+  footer strong { color: var(--azul); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    header h1 { font-size: 1.1rem; }
+    .options-grid { grid-template-columns: 1fr; }
+    .flashcard-scene { height: 220px; }
+    .flashcard-front .fc-word { font-size: 1.5rem; }
+    .word-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo">I.E. José María Herrán · Sede Paulina Puerta</div>
+  <h1>📚 Vocabulario <span>B1</span> – Grado 11°</h1>
+  <div class="header-sub">Preparación Pruebas ICFES · English Please</div>
+  <span class="badge-icfes">🏆 ICFES Ready</span>
+</header>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat-item">📖 <span class="stat-num" id="totalWords">0</span> palabras</div>
+  <div class="stat-item">🗂️ <span class="stat-num">20</span> categorías</div>
+  <div class="stat-item">⭐ <span class="stat-num">B1</span> PET</div>
+</div>
+
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="showSection('lista',this)">📋 Lista</button>
+  <button class="tab-btn" onclick="showSection('flash',this)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showSection('quiz',this)">🧠 Quiz</button>
+</nav>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Buscar palabra o traducción…" oninput="filterWords()">
+  </div>
+  <select class="cat-select" id="catFilter" onchange="filterWords()">
+    <option value="">Todas las categorías</option>
+  </select>
+  <span class="count-badge" id="countBadge">0 palabras</span>
+</div>
+
+<!-- LISTA -->
+<section id="secLista">
+  <div id="listaContainer"></div>
+  <div class="empty-state" id="emptyMsg" style="display:none">
+    <div class="big">🔍</div>
+    No se encontraron palabras.<br>Intenta con otro término.
+  </div>
+</section>
+
+<!-- FLASHCARDS -->
+<section id="secFlash" style="display:none">
+  <div class="flash-meta">Tarjeta <span id="fcCurrent">1</span> de <span id="fcTotal">0</span></div>
+  <div class="flash-progress-bar">
+    <div class="flash-progress-fill" id="fcProgressFill" style="width:0%"></div>
+  </div>
+
+  <div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard-inner" id="fcInner">
+      <div class="flashcard-face flashcard-front">
+        <div class="fc-label">🇬🇧 Palabra en inglés</div>
+        <div class="fc-word" id="fcWord">—</div>
+        <div class="fc-pos" id="fcPos">noun</div>
+        <div class="fc-cat" id="fcCat">—</div>
+      </div>
+      <div class="flashcard-face flashcard-back">
+        <div class="fc-trans" id="fcTrans">—</div>
+        <div class="fc-ex" id="fcEx">—</div>
+        <div class="fc-hint">Toca para volver al frente</div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-tap-hint">👆 Toca la tarjeta para ver la traducción</div>
+
+  <div class="flash-btns">
+    <button class="btn btn-prev" onclick="fcMove(-1)">◀ Anterior</button>
+    <button class="btn btn-shuffle" onclick="fcShuffle()">🔀 Mezclar</button>
+    <button class="btn btn-next" onclick="fcMove(1)">Siguiente ▶</button>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="secQuiz" style="display:none">
+  <div class="quiz-header">
+    <div class="quiz-score-box">
+      ✅ <span class="qs-ok" id="qOk">0</span>
+      &nbsp;❌ <span class="qs-fail" id="qFail">0</span>
+    </div>
+    <div class="quiz-progress" id="qProgress">Pregunta 1 / 10</div>
+    <button class="btn btn-shuffle" onclick="startQuiz()" style="padding:6px 14px;font-size:.82rem">🔄 Nuevo Quiz</button>
+  </div>
+
+  <div id="quizContainer"></div>
+</section>
+
+<footer>
+  Vocabulario B1 · Nivel PET · Preparación ICFES · Grado 11° &nbsp;|&nbsp;
+  Hecho con ♥️ por <strong>Jorge MORENO</strong> &nbsp;|&nbsp;
+  I.E. José María Herrán · Microcentro Forjadores de Sueños · Ciudad Bolívar, Antioquia
+</footer>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  DATOS DE VOCABULARIO - Fuente: Vocabulario_B1_Ingles.docx
+//  Campos: [palabra, traducción, pos, ejemplo, categoría]
+// ════════════════════════════════════════════════════════
+const VOCAB = [
+// ── TRAVEL AND TRANSPORT ──────────────────────────────
+["Accommodation","alojamiento","noun","We need to find accommodation before the trip.","Travel and transport"],
+["Aeroplane","aeroplano","noun","The aeroplane landed safely at the airport.","Travel and transport"],
+["Bicycle","bicicleta","noun","He rides his bicycle to school every day.","Travel and transport"],
+["Abroad","en el extranjero","adverb","She studied abroad for one year.","Travel and transport"],
+["Airline","aerolínea","noun","Which airline do you prefer for long flights?","Travel and transport"],
+["Airport","aeropuerto","noun","We arrived at the airport two hours early.","Travel and transport"],
+["Ambulance","ambulancia","noun","Call an ambulance – there has been an accident!","Travel and transport"],
+["Announcement","anuncio","noun","The announcement said the flight was delayed.","Travel and transport"],
+["Arrive","llegar","verb","We will arrive in Bogotá at noon.","Travel and transport"],
+["Arrival","llegada","noun","The arrival of the train was on time.","Travel and transport"],
+["Backpack","mochila","noun","She carried all her books in her backpack.","Travel and transport"],
+["Baggage","equipaje","noun","Please check your baggage at the counter.","Travel and transport"],
+["Board","abordar","verb","Passengers must board the plane at gate 5.","Travel and transport"],
+["Boarding pass","pasaje","noun","You need your boarding pass to get on the plane.","Travel and transport"],
+["Boat","barco","noun","They crossed the river by boat.","Travel and transport"],
+["Border","frontera","noun","We crossed the border between Colombia and Ecuador.","Travel and transport"],
+["Brochure","folleto","noun","The travel brochure showed beautiful beaches.","Travel and transport"],
+["Bus station","estación del autobús","noun","The bus station is in the city centre.","Travel and transport"],
+["Cab","taxi","noun","He took a cab to the hotel.","Travel and transport"],
+["Cabin","cabina de pasajeros","noun","The cabin of the plane was very comfortable.","Travel and transport"],
+["Capital city","ciudad capital","noun","Bogotá is the capital city of Colombia.","Travel and transport"],
+["Car park","estacionamiento","noun","There is a car park behind the supermarket.","Travel and transport"],
+["Catch","coger","verb","We need to catch the 8 o'clock bus.","Travel and transport"],
+["Change","cambiar","verb","You have to change trains at the next station.","Travel and transport"],
+["Charter","alquilar un avión/barco","verb","The company chartered a plane for the team.","Travel and transport"],
+["Check in","registrar la entrada","phrasal verb","You should check in two hours before the flight.","Travel and transport"],
+["Check out","registrar la salida","phrasal verb","We check out of the hotel tomorrow morning.","Travel and transport"],
+["Coach","coche / entrenador","noun","The coach leaves for Medellín at 7 a.m.","Travel and transport"],
+["Confirm","confirmar","verb","Please confirm your reservation by email.","Travel and transport"],
+["Consulate","consulado","noun","She visited the consulate to get her visa.","Travel and transport"],
+["Crossing","cruce","noun","Use the pedestrian crossing to cross the road.","Travel and transport"],
+["Crossroads","crucero de calles","noun","Turn left at the crossroads.","Travel and transport"],
+["Currency","moneda","noun","The currency in Colombia is the peso.","Travel and transport"],
+["Customs","aduana","noun","We had to pass through customs at the airport.","Travel and transport"],
+["Cycle","ciclo / andar en bici","noun/verb","She cycles to work every morning.","Travel and transport"],
+["Cyclist","ciclista","noun","The cyclist was wearing a helmet.","Travel and transport"],
+["Deck","cubierta (de nave)","noun","We sat on the deck of the ship to enjoy the view.","Travel and transport"],
+["Delay","retraso","noun","There was a two-hour delay because of bad weather.","Travel and transport"],
+["Deliver","entregar","verb","The company will deliver the package tomorrow.","Travel and transport"],
+["Depart","salir / partir","verb","The train will depart from platform 3.","Travel and transport"],
+["Departure","salida","noun","The departure time is 6:30 in the morning.","Travel and transport"],
+["Destination","destino","noun","Our final destination is Cartagena.","Travel and transport"],
+["Direction","dirección","noun","Can you give me directions to the bus station?","Travel and transport"],
+["Document","documento","noun","You need your identity document to travel.","Travel and transport"],
+["Double room","cuarto para dos","noun","We booked a double room at the hotel.","Travel and transport"],
+["Drive","manejar / paseo","verb","It takes two hours to drive from here.","Travel and transport"],
+["Driving licence","licencia de conducir","noun","You must show your driving licence at the checkpoint.","Travel and transport"],
+["Duty-free","libre de impuestos","adjective","She bought perfume at the duty-free shop.","Travel and transport"],
+["Embassy","embajada","noun","The embassy helped the tourist with his passport.","Travel and transport"],
+["Exchange rate","tipo de cambio","noun","The exchange rate today is good for travellers.","Travel and transport"],
+["Fare","tarifa","noun","The bus fare has gone up this year.","Travel and transport"],
+["Ferry","embarcación / ferry","noun","We took the ferry to cross the bay.","Travel and transport"],
+["Flight","vuelo","noun","Our flight to London leaves at midnight.","Travel and transport"],
+["Foreign","extranjero","adjective","She speaks three foreign languages.","Travel and transport"],
+["Fuel","combustible","noun","The car stopped because it ran out of fuel.","Travel and transport"],
+["Gate","puerta de embarque","noun","Please go to gate 12 for boarding.","Travel and transport"],
+["Guide","guía (persona)","noun","The tour guide showed us the main attractions.","Travel and transport"],
+["Guidebook","guía (libro)","noun","This guidebook has great tips for travellers.","Travel and transport"],
+["Guest","huésped","noun","The hotel can receive up to 50 guests.","Travel and transport"],
+["Guesthouse","casa de alojamiento","noun","We stayed in a small guesthouse in the village.","Travel and transport"],
+["Harbour","puerto","noun","The fishing boats returned to the harbour.","Travel and transport"],
+["Helicopter","helicóptero","noun","A helicopter flew over the mountains.","Travel and transport"],
+["Hitchhike","hacer autostop","verb","They hitchhiked across the country.","Travel and transport"],
+["Hotel","hotel","noun","The hotel has a swimming pool and a restaurant.","Travel and transport"],
+["Immigration","inmigración","noun","We waited at immigration for 30 minutes.","Travel and transport"],
+["Interpreter","intérprete","noun","The interpreter translated the speech.","Travel and transport"],
+["Journey","viaje (terrestre)","noun","The journey from here to Bogotá takes five hours.","Travel and transport"],
+["Land","aterrizar","verb","The plane will land in ten minutes.","Travel and transport"],
+["Lorry","camión","noun","A lorry blocked the road for an hour.","Travel and transport"],
+["Luggage","equipaje","noun","Please do not leave your luggage unattended.","Travel and transport"],
+["Motorbike","motocicleta","noun","My brother rides a motorbike to work.","Travel and transport"],
+["Motorway","autopista","noun","We drove along the motorway at 100 km/h.","Travel and transport"],
+["Nationality","nacionalidad","noun","Her nationality is Colombian.","Travel and transport"],
+["Passport","pasaporte","noun","Do not forget your passport when travelling abroad.","Travel and transport"],
+["Path","camino","noun","Follow the path through the forest.","Travel and transport"],
+["Petrol station","estación de gasolina","noun","We stopped at the petrol station to fill the tank.","Travel and transport"],
+["Pilot","piloto","noun","The pilot announced a smooth flight.","Travel and transport"],
+["Platform","plataforma / andén","noun","The train leaves from platform 4.","Travel and transport"],
+["Railway","vía férrea","noun","The railway connects the two cities.","Travel and transport"],
+["Reception","recepción","noun","Please leave your key at reception.","Travel and transport"],
+["Reservation","reservación","noun","I made a reservation at the restaurant.","Travel and transport"],
+["Return","retornar","verb","The bus will return at 6 p.m.","Travel and transport"],
+["Road sign","señal de tránsito","noun","Always follow road signs when driving.","Travel and transport"],
+["Roundabout","redondel / glorieta","noun","Go around the roundabout and take the second exit.","Travel and transport"],
+["Route","ruta","noun","We took the scenic route through the mountains.","Travel and transport"],
+["Sail","navegar (a vela)","verb","They sailed across the Caribbean Sea.","Travel and transport"],
+["Scooter","patinete / moto pequeña","noun","She uses a scooter to get around the city.","Travel and transport"],
+["Seat belt","cinturón de seguridad","noun","Always fasten your seat belt before driving.","Travel and transport"],
+["Ship","barco grande","noun","The ship carried 500 passengers.","Travel and transport"],
+["Sightseeing","turismo","noun","We went sightseeing in the old part of the city.","Travel and transport"],
+["Single room","cuarto individual","noun","I need a single room for two nights.","Travel and transport"],
+["Speed","velocidad","noun","The speed limit on this road is 80 km/h.","Travel and transport"],
+["Subway","metro / tren subterráneo","noun","Take the subway to the city centre.","Travel and transport"],
+["Suitcase","maleta","noun","Her suitcase was too heavy to lift.","Travel and transport"],
+["Take off","despegar","phrasal verb","The plane will take off in 20 minutes.","Travel and transport"],
+["Terminal","terminal","noun","Bus terminal B is on the other side of the street.","Travel and transport"],
+["Tourist","turista","noun","The city receives millions of tourists every year.","Travel and transport"],
+["Traffic","tráfico","noun","There was heavy traffic on the main road.","Travel and transport"],
+["Traffic lights","semáforos","noun","Stop when the traffic lights are red.","Travel and transport"],
+["Traffic jam","atasco","noun","We were stuck in a traffic jam for two hours.","Travel and transport"],
+["Train","tren","noun","The train is faster than the bus.","Travel and transport"],
+["Tram","tranvía","noun","Medellín has a modern tram system.","Travel and transport"],
+["Translate","traducir","verb","Can you translate this sentence for me?","Travel and transport"],
+["Trip","viaje (corto)","noun","We took a day trip to the countryside.","Travel and transport"],
+["Tunnel","túnel","noun","The car went through a long tunnel.","Travel and transport"],
+["Underground","metro / tren subterráneo","noun","The underground is very fast in big cities.","Travel and transport"],
+["Vehicle","vehículo","noun","Every vehicle must have insurance.","Travel and transport"],
+["Visitor","visitante","noun","The museum received 200 visitors today.","Travel and transport"],
+["Voyage","viaje (por mar)","noun","The voyage across the ocean took many weeks.","Travel and transport"],
+["Waiting room","sala de espera","noun","Please wait in the waiting room.","Travel and transport"],
+["Windscreen","parabrisas","noun","The windscreen was broken by a stone.","Travel and transport"],
+
+// ── BANK ─────────────────────────────────────────────
+["Account","cuenta","noun","I opened a savings account at the bank.","Bank"],
+["Bills","facturas / billetes","noun","She paid all her bills at the end of the month.","Bank"],
+["Borrow","tomar prestado","verb","Can I borrow some money until Friday?","Bank"],
+["Cash","dinero en efectivo","noun","Do you pay by card or cash?","Bank"],
+["Cashier","cajero (persona)","noun","The cashier counted the money carefully.","Bank"],
+["Checkout","caja (tienda)","noun","There was a long queue at the checkout.","Bank"],
+["Coins","monedas","noun","She put her coins in her piggy bank.","Bank"],
+["Credit card","tarjeta de crédito","noun","He paid with his credit card.","Bank"],
+["Currency","moneda (sistema)","noun","The dollar is the currency of the USA.","Bank"],
+["Customer","cliente","noun","The bank has many loyal customers.","Bank"],
+["Deposit","depósito","noun","She made a deposit of 500,000 pesos.","Bank"],
+["Lend","prestar","verb","The bank will lend you money if you have a job.","Bank"],
+["Loan","préstamo","noun","He took out a loan to buy a house.","Bank"],
+["Money","dinero","noun","Money is important but not everything.","Bank"],
+["Mortgage","hipoteca","noun","They got a mortgage to buy their first home.","Bank"],
+["Pay","pagar","verb","We must pay the rent before the 5th.","Bank"],
+["Save","ahorrar","verb","It is important to save money for the future.","Bank"],
+["Savings","ahorros","noun","Her savings allowed her to study at university.","Bank"],
+["Guard","guardia de seguridad","noun","The security guard stood at the bank entrance.","Bank"],
+["Teller","cajero bancario","noun","The teller helped me with the transaction.","Bank"],
+["Vault","bóveda bancaria","noun","The gold is kept in the vault.","Bank"],
+["Withdraw","retirar dinero","verb","He withdrew 200,000 pesos from the ATM.","Bank"],
+
+// ── SPORT ─────────────────────────────────────────────
+["Athlete","atleta","noun","The athlete trained every day for the Olympics.","Sport"],
+["Athletics","atletismo","noun","Athletics includes running, jumping and throwing.","Sport"],
+["Helmet","casco","noun","Always wear a helmet when cycling.","Sport"],
+["Baseball","béisbol","noun","Baseball is very popular in the USA.","Sport"],
+["Basketball","baloncesto","noun","The school basketball team won the tournament.","Sport"],
+["Canoeing","canotaje","noun","We went canoeing on the river last weekend.","Sport"],
+["Boxing","boxeo","noun","Boxing requires speed and strength.","Sport"],
+["Champion","campeón","noun","She became the national swimming champion.","Sport"],
+["Changing room","vestidores","noun","Leave your bags in the changing room.","Sport"],
+["Climbing","escalada","noun","Rock climbing is an exciting outdoor sport.","Sport"],
+["Coach","entrenador","noun","The coach gave instructions before the game.","Sport"],
+["Competition","competencia","noun","She won first place in the competition.","Sport"],
+["Court","cancha (tenis)","noun","The tennis court was wet after the rain.","Sport"],
+["Cycling","ciclismo","noun","Cycling is a great way to stay fit.","Sport"],
+["Dancing","danza","noun","She loves dancing and practises every day.","Sport"],
+["Diving","buceo / clavado","noun","Cliff diving is a dangerous but exciting sport.","Sport"],
+["Fishing","pesca","noun","My grandfather loves fishing in the river.","Sport"],
+["Fitness","estado físico","noun","Regular exercise improves your fitness.","Sport"],
+["Football","fútbol","noun","Football is the most popular sport in Colombia.","Sport"],
+["Game","juego / partido","noun","We watched the game on TV.","Sport"],
+["Golf","golf","noun","My uncle plays golf every Sunday morning.","Sport"],
+["Gymnastics","gimnasia","noun","She started gymnastics at age six.","Sport"],
+["High jump","salto de altura","noun","He won a medal in the high jump.","Sport"],
+["Hockey","hockey","noun","Ice hockey is popular in Canada.","Sport"],
+["Jogging","trotar","noun","She goes jogging in the park every morning.","Sport"],
+["Kick","patear","verb","He kicked the ball into the goal.","Sport"],
+["Long jump","salto largo","noun","The long jump record was broken last year.","Sport"],
+["Match","partido","noun","The football match ended in a draw.","Sport"],
+["Net","red","noun","The ball hit the net and fell back.","Sport"],
+["Practice","práctica","noun","Practice makes perfect.","Sport"],
+["Prize","premio","noun","The first prize was a golden medal.","Sport"],
+["Race","carrera","noun","She won the 100m race easily.","Sport"],
+["Race track","pista de carreras","noun","The cars raced around the track.","Sport"],
+["Racket","raqueta","noun","She bought a new tennis racket.","Sport"],
+["Rugby","rugby","noun","Rugby is played with an oval ball.","Sport"],
+["Running","correr","noun","Running is good for the heart and lungs.","Sport"],
+["Sailing","vela (deporte)","noun","They went sailing on the lake.","Sport"],
+["Score","puntaje / marcar","noun","The final score was 3-1.","Sport"],
+["Season","temporada","noun","The football season starts in August.","Sport"],
+["Shorts","pantalones cortos","noun","He wore shorts and a T-shirt to play.","Sport"],
+["Skiing","esquí","noun","She learned skiing in the Andes.","Sport"],
+["Stadium","estadio","noun","The stadium holds 80,000 spectators.","Sport"],
+["Surfing","surf","noun","Surfing is popular on the Pacific coast.","Sport"],
+["Swimming","natación","noun","Swimming is a complete physical exercise.","Sport"],
+["Table tennis","tenis de mesa","noun","They played table tennis in the gym.","Sport"],
+["Take part","participar","phrasal verb","Everyone is welcome to take part in the race.","Sport"],
+["Team","equipo","noun","Our team practises twice a week.","Sport"],
+["Tennis","tenis","noun","Tennis requires agility and concentration.","Sport"],
+["Trophy","trofeo","noun","The captain lifted the trophy after the win.","Sport"],
+["Tracksuit","buzo / traje deportivo","noun","He wore a blue tracksuit to training.","Sport"],
+["Trainers","zapatillas deportivas","noun","I need new trainers for the marathon.","Sport"],
+["Training","entrenamiento","noun","The team has training every Tuesday and Thursday.","Sport"],
+["Volleyball","voleibol","noun","They played volleyball on the beach.","Sport"],
+
+// ── HOBBIES AND LEISURE ───────────────────────────────
+["Barbecue","parrillada","noun","We had a barbecue in the garden on Saturday.","Hobbies and leisure"],
+["Camera","cámara","noun","She took many photos with her new camera.","Hobbies and leisure"],
+["Camp","acampar","verb","We camped near the river during the holidays.","Hobbies and leisure"],
+["Campsite","campamento","noun","The campsite was full of tents and happy families.","Hobbies and leisure"],
+["Chess","ajedrez","noun","My grandfather taught me how to play chess.","Hobbies and leisure"],
+["Club","club","noun","She joined an English conversation club.","Hobbies and leisure"],
+["Collect","coleccionar","verb","He collects stamps from different countries.","Hobbies and leisure"],
+["Collection","colección","noun","She has a large collection of books.","Hobbies and leisure"],
+["Cruise","crucero","noun","They went on a cruise around the Caribbean.","Hobbies and leisure"],
+["Drawing","dibujo","noun","Drawing is her favourite hobby.","Hobbies and leisure"],
+["Gardening","jardinería","noun","My mum loves gardening – our yard is beautiful.","Hobbies and leisure"],
+["Fiction","ficción","noun","He reads science fiction in his free time.","Hobbies and leisure"],
+["Gallery","galería","noun","We visited an art gallery downtown.","Hobbies and leisure"],
+["Guitar","guitarra","noun","She plays the guitar in a band.","Hobbies and leisure"],
+["Hire","contratar / alquilar","verb","We hired bicycles for the day.","Hobbies and leisure"],
+["Keen on","aficionado a","phrasal verb","She is keen on photography.","Hobbies and leisure"],
+["Membership","membresía","noun","He has a gym membership for this year.","Hobbies and leisure"],
+["Museum","museo","noun","The history museum has fascinating exhibits.","Hobbies and leisure"],
+["Music","música","noun","Music is a universal language.","Hobbies and leisure"],
+["Painting","pintura","noun","His painting won first prize at the school fair.","Hobbies and leisure"],
+["Picnic","picnic / día de campo","noun","We had a picnic by the river on Sunday.","Hobbies and leisure"],
+["Pottery","cerámica / artesanía","noun","She makes beautiful pottery in her workshop.","Hobbies and leisure"],
+["Quiz","concurso de preguntas","noun","Our class won the English quiz competition.","Hobbies and leisure"],
+["Sculpture","escultura","noun","There is a famous sculpture in the main square.","Hobbies and leisure"],
+["Sightseeing","turismo","noun","We spent the morning sightseeing in the old city.","Hobbies and leisure"],
+["Sunbathe","tomar el sol","verb","She loves to sunbathe on the beach.","Hobbies and leisure"],
+["Tent","carpa","noun","We slept in a tent during our camping trip.","Hobbies and leisure"],
+
+// ── WORKS AND JOBS ────────────────────────────────────
+["Travel agent","agente de viajes","noun","The travel agent found us a cheap flight.","Works and Jobs"],
+["Air hostess","azafata","noun","The air hostess served drinks on the plane.","Works and Jobs"],
+["Application","solicitud de empleo","noun","She sent her job application by email.","Works and Jobs"],
+["Apply","solicitar / aplicar","verb","He applied for a job at the hospital.","Works and Jobs"],
+["Architect","arquitecto","noun","The architect designed a modern school.","Works and Jobs"],
+["Army","ejército","noun","His brother works in the army.","Works and Jobs"],
+["Assistant","ayudante","noun","The sales assistant helped me choose a shirt.","Works and Jobs"],
+["Banker","banquero","noun","The banker approved the loan request.","Works and Jobs"],
+["Boss","jefe","noun","Her boss gave her a promotion.","Works and Jobs"],
+["Businessman","hombre de negocios","noun","The businessman closed an important deal.","Works and Jobs"],
+["Butcher","carnicero","noun","The butcher sells fresh meat every morning.","Works and Jobs"],
+["Candidate","candidato","noun","There were ten candidates for the position.","Works and Jobs"],
+["Captain","capitán","noun","The captain welcomed passengers aboard.","Works and Jobs"],
+["Career","carrera profesional","noun","She built a successful career in medicine.","Works and Jobs"],
+["Carpenter","carpintero","noun","The carpenter made beautiful wooden furniture.","Works and Jobs"],
+["Chemist","químico / farmacéutico","noun","The chemist prepared the medicine.","Works and Jobs"],
+["Clerk","empleado de oficina","noun","The clerk typed the report quickly.","Works and Jobs"],
+["Colleague","colega","noun","My colleague helped me with the project.","Works and Jobs"],
+["Comedian","cómico","noun","The comedian made everyone laugh.","Works and Jobs"],
+["Company","empresa","noun","She works for a large technology company.","Works and Jobs"],
+["Contract","contrato","noun","He signed a two-year contract.","Works and Jobs"],
+["Designer","diseñador","noun","The designer created a beautiful logo.","Works and Jobs"],
+["Detective","detective","noun","The detective solved the mystery.","Works and Jobs"],
+["Director","director","noun","She became the director of the school.","Works and Jobs"],
+["Diver","buzo / buceador","noun","The diver explored the coral reef.","Works and Jobs"],
+["Employee","empleado","noun","The company has 50 employees.","Works and Jobs"],
+["Employer","empleador / patrón","noun","A good employer respects their workers.","Works and Jobs"],
+["Employment","empleo","noun","Employment rates have improved this year.","Works and Jobs"],
+["Engineer","ingeniero","noun","She is a civil engineer working on bridges.","Works and Jobs"],
+["Farmer","granjero","noun","The farmer grows coffee and sugarcane.","Works and Jobs"],
+["Fireman","bombero","noun","The fireman rescued the child from the fire.","Works and Jobs"],
+["Full time","tiempo completo","adjective","She works full time at the clinic.","Works and Jobs"],
+["Greengrocer","verdulero","noun","The greengrocer sells fresh vegetables.","Works and Jobs"],
+["Guard","guardia","noun","The guard checked all bags at the entrance.","Works and Jobs"],
+["Hairdresser","peluquero","noun","She works as a hairdresser in a salon.","Works and Jobs"],
+["Housewife","ama de casa","noun","She is a housewife and raises three children.","Works and Jobs"],
+["Instructor","instructor","noun","The swimming instructor taught the children.","Works and Jobs"],
+["Journalist","periodista","noun","The journalist wrote about the new law.","Works and Jobs"],
+["Judge","juez","noun","The judge listened to both sides carefully.","Works and Jobs"],
+["Labourer","jornalero","noun","The labourer worked all day in the fields.","Works and Jobs"],
+["Lawyer","abogado","noun","She hired a lawyer for the court case.","Works and Jobs"],
+["Librarian","bibliotecario","noun","The librarian recommended an interesting book.","Works and Jobs"],
+["Manager","gerente","noun","The manager approved the new project.","Works and Jobs"],
+["Mechanic","mecánico","noun","The mechanic repaired the car in an hour.","Works and Jobs"],
+["Musician","músico","noun","The musician played the piano beautifully.","Works and Jobs"],
+["Novelist","novelista","noun","She is a famous Colombian novelist.","Works and Jobs"],
+["Occupation","ocupación","noun","What is your current occupation?","Works and Jobs"],
+["Owner","dueño","noun","He is the owner of a small restaurant.","Works and Jobs"],
+["Part time","medio tiempo","adjective","She works part time while studying.","Works and Jobs"],
+["Pensioner","jubilado","noun","The pensioner receives money from the government.","Works and Jobs"],
+["Photographer","fotógrafo","noun","The photographer took stunning photos.","Works and Jobs"],
+["Policeman","policía","noun","The policeman directed the traffic.","Works and Jobs"],
+["Politician","político","noun","The politician gave a speech in parliament.","Works and Jobs"],
+["Postman","cartero","noun","The postman delivered the letter this morning.","Works and Jobs"],
+["Presenter","presentador","noun","The TV presenter read the evening news.","Works and Jobs"],
+["Priest","sacerdote","noun","The priest spoke to the community on Sunday.","Works and Jobs"],
+["Professor","catedrático","noun","The professor taught history at university.","Works and Jobs"],
+["Programmer","programador","noun","The programmer wrote the app in two weeks.","Works and Jobs"],
+["Publisher","editor","noun","The publisher accepted her first novel.","Works and Jobs"],
+["Quit","dejar / renunciar","verb","She quit her job to start her own business.","Works and Jobs"],
+["Qualification","estudios / título","noun","A degree is a useful qualification for many jobs.","Works and Jobs"],
+["Reporter","reportero","noun","The reporter interviewed the mayor.","Works and Jobs"],
+["Retire","jubilarse","verb","My teacher will retire at the end of the year.","Works and Jobs"],
+["Salary","sueldo","noun","She earns a good salary as an engineer.","Works and Jobs"],
+["Salesman","vendedor","noun","The salesman showed us several models.","Works and Jobs"],
+["Scientist","científico","noun","The scientist discovered a new medicine.","Works and Jobs"],
+["Secretary","secretario","noun","The secretary organised the director's meetings.","Works and Jobs"],
+["Soldier","soldado","noun","The soldier stood guard at the gate.","Works and Jobs"],
+["Staff","personal / empleados","noun","The staff were friendly and helpful.","Works and Jobs"],
+["Stewardess","azafata","noun","The stewardess brought us drinks on the flight.","Works and Jobs"],
+["Taxi driver","taxista","noun","The taxi driver knew all the streets in the city.","Works and Jobs"],
+["Trade","comercio","noun","International trade helps countries grow.","Works and Jobs"],
+["Unemployment","desempleo","noun","Unemployment is a serious social problem.","Works and Jobs"],
+["Wages","salario / pago semanal","noun","Workers receive their wages every week.","Works and Jobs"],
+["Waiter","mesero (hombre)","noun","The waiter brought the menu immediately.","Works and Jobs"],
+["Waitress","mesera (mujer)","noun","The waitress was polite and efficient.","Works and Jobs"],
+["Workman","obrero","noun","The workman repaired the road.","Works and Jobs"],
+
+// ── ADVERBS OF TIME ───────────────────────────────────
+["After","después","adverb","We went for a walk after dinner.","Adverbs of time"],
+["Always","siempre","adverb","She always arrives on time.","Adverbs of time"],
+["Before","antes","adverb","Read the instructions before you start.","Adverbs of time"],
+["During","durante","preposition","Please be quiet during the exam.","Adverbs of time"],
+["Lately","últimamente","adverb","Have you been to any concerts lately?","Adverbs of time"],
+["Never","nunca","adverb","He never misses an English class.","Adverbs of time"],
+["Often","a menudo","adverb","She often reads before going to sleep.","Adverbs of time"],
+["Rarely","rara vez","adverb","I rarely eat fast food.","Adverbs of time"],
+["Recently","recientemente","adverb","They recently moved to a new house.","Adverbs of time"],
+["Sometimes","a veces","adverb","Sometimes I walk to school.","Adverbs of time"],
+["Soon","pronto","adverb","The results will be available soon.","Adverbs of time"],
+["Tonight","esta noche","adverb","We are going to the cinema tonight.","Adverbs of time"],
+["Tomorrow","mañana","adverb","The test is tomorrow – study hard!","Adverbs of time"],
+["Usually","usualmente","adverb","I usually have breakfast at 7 a.m.","Adverbs of time"],
+["Yesterday","ayer","adverb","Yesterday I studied for three hours.","Adverbs of time"],
+
+// ── FOOD AND DRINK ────────────────────────────────────
+["Avocado","aguacate","noun","Avocado is delicious with rice and chicken.","Food and drink"],
+["Bake","hornear","verb","She bakes bread every Sunday.","Food and drink"],
+["Barbecue","parrillada","noun","We had a barbecue with the family.","Food and drink"],
+["Bean","frijol","noun","Beans and rice are a typical Colombian meal.","Food and drink"],
+["Biscuit","galleta","noun","She had tea and biscuits in the afternoon.","Food and drink"],
+["Bitter","amargo","adjective","The coffee was too bitter for me.","Food and drink"],
+["Boil","hervir","verb","Boil the water before making the soup.","Food and drink"],
+["Bowl","tazón / plato hondo","noun","He had a bowl of soup for lunch.","Food and drink"],
+["Breakfast","desayuno","noun","A good breakfast gives you energy for the day.","Food and drink"],
+["Butter","mantequilla","noun","She spread butter on the toast.","Food and drink"],
+["Cabbage","repollo","noun","Cabbage is a healthy green vegetable.","Food and drink"],
+["Cake","pastel / torta","noun","They made a chocolate cake for the birthday.","Food and drink"],
+["Candy","dulces","noun","Children love candy, but it harms their teeth.","Food and drink"],
+["Carrot","zanahoria","noun","Carrots are good for your eyes.","Food and drink"],
+["Cereal","cereal","noun","He eats cereal with milk every morning.","Food and drink"],
+["Chicken","pollo","noun","Chicken soup is perfect when you have a cold.","Food and drink"],
+["Chips","papas fritas","noun","She ordered chips with her sandwich.","Food and drink"],
+["Chocolate","chocolate","noun","Colombian chocolate is famous worldwide.","Food and drink"],
+["Coconut","coco","noun","She drinks coconut water after exercise.","Food and drink"],
+["Coffee","café","noun","Colombian coffee is known for its quality.","Food and drink"],
+["Cookie","galleta","noun","She baked cookies for the school fair.","Food and drink"],
+["Corn","maíz","noun","Corn is an important crop in Colombia.","Food and drink"],
+["Cream","crema","noun","She added cream to the soup.","Food and drink"],
+["Crunchy","crujiente","adjective","This cereal is very crunchy.","Food and drink"],
+["Cucumber","pepino","noun","She put cucumber in the salad.","Food and drink"],
+["Curry","curry","noun","She cooked a vegetable curry for dinner.","Food and drink"],
+["Dessert","postre","noun","For dessert, we had ice cream and fruit.","Food and drink"],
+["Diet","dieta","noun","He is on a diet to improve his health.","Food and drink"],
+["Dinner","cena","noun","We usually have dinner at 7 p.m.","Food and drink"],
+["Dish","plato (comida)","noun","The local dish is bandeja paisa.","Food and drink"],
+["Duck","pato (carne)","noun","Duck is a popular dish in some countries.","Food and drink"],
+["Flour","harina","noun","You need flour to make bread.","Food and drink"],
+["Fork","tenedor","noun","Use a fork to eat your pasta.","Food and drink"],
+["Fresh","fresco","adjective","Fresh fruit and vegetables are very healthy.","Food and drink"],
+["Frying pan","sartén","noun","She fried the eggs in a frying pan.","Food and drink"],
+["Grape","uva","noun","Grapes grow in many parts of Colombia.","Food and drink"],
+["Grill","parrilla / asar","noun/verb","We grilled the meat on the barbecue.","Food and drink"],
+["Ham","jamón","noun","He ordered a ham and cheese sandwich.","Food and drink"],
+["Honey","miel","noun","She added honey to her tea.","Food and drink"],
+["Hungry","hambriento","adjective","I am hungry – when is lunch?","Food and drink"],
+["Ice cream","helado","noun","She had two scoops of vanilla ice cream.","Food and drink"],
+["Ingredients","ingredientes","noun","The recipe has only five ingredients.","Food and drink"],
+["Jam","mermelada","noun","She put strawberry jam on her toast.","Food and drink"],
+["Juice","jugo","noun","She drank a glass of orange juice.","Food and drink"],
+["Knife","cuchillo","noun","Be careful – that knife is very sharp.","Food and drink"],
+["Lamb","cordero","noun","Roast lamb is traditional at Easter.","Food and drink"],
+["Lemon","limón","noun","She squeezed lemon over the fish.","Food and drink"],
+["Lettuce","lechuga","noun","The salad has lettuce, tomato and avocado.","Food and drink"],
+["Lunch","almuerzo","noun","School lunch is served at noon.","Food and drink"],
+["Meat","carne","noun","He eats meat twice a week.","Food and drink"],
+["Melon","melón","noun","Chilled melon is refreshing in summer.","Food and drink"],
+["Mushroom","champiñón / hongo","noun","She added mushrooms to the omelette.","Food and drink"],
+["Mustard","mostaza","noun","He put mustard on his hot dog.","Food and drink"],
+["Omelette","tortilla de huevo","noun","She made a cheese and mushroom omelette.","Food and drink"],
+["Orange","naranja","noun","Colombia produces a lot of oranges.","Food and drink"],
+["Pasta","pasta","noun","She cooked pasta with tomato sauce.","Food and drink"],
+["Pea","arveja","noun","Peas are small green vegetables.","Food and drink"],
+["Peanut","maní","noun","Roasted peanuts are a popular snack here.","Food and drink"],
+["Pear","pera","noun","She put a pear in her lunchbox.","Food and drink"],
+["Pepper","pimienta / pimentón","noun","Add salt and pepper to taste.","Food and drink"],
+["Pie","pastel / empanada","noun","She made an apple pie for dessert.","Food and drink"],
+["Pizza","pizza","noun","Pizza is popular among young people.","Food and drink"],
+["Plate","plato (vajilla)","noun","Please put your plate in the sink.","Food and drink"],
+["Potato","papa","noun","Potatoes are used in many Colombian dishes.","Food and drink"],
+["Recipe","receta","noun","She followed the recipe step by step.","Food and drink"],
+["Rice","arroz","noun","Rice is the most common food in Colombia.","Food and drink"],
+["Salad","ensalada","noun","She eats a salad every day for lunch.","Food and drink"],
+["Salt","sal","noun","Don't add too much salt to your food.","Food and drink"],
+["Salty","salado","adjective","The soup was too salty for my taste.","Food and drink"],
+["Sandwich","sándwich / emparedado","noun","He had a tuna sandwich for lunch.","Food and drink"],
+["Sausage","salchicha","noun","She cooked sausages and eggs for breakfast.","Food and drink"],
+["Slice","rebanada / rodaja","noun","He ate a slice of bread with honey.","Food and drink"],
+["Snack","bocadillo / merienda","noun","An apple is a healthy snack.","Food and drink"],
+["Soft drink","gaseosa / refresco","noun","She ordered a soft drink with her meal.","Food and drink"],
+["Soup","sopa","noun","Chicken soup is delicious on cold days.","Food and drink"],
+["Sour","agrio","adjective","Lemon juice is very sour.","Food and drink"],
+["Spicy","picante","adjective","Spicy food can cause stomach problems.","Food and drink"],
+["Spinach","espinaca","noun","Spinach is rich in iron and vitamins.","Food and drink"],
+["Spoon","cuchara","noun","Use a spoon to eat your soup.","Food and drink"],
+["Steak","bistec","noun","She ordered a steak with salad.","Food and drink"],
+["Strawberry","fresa","noun","Strawberries grow well in the cold highlands.","Food and drink"],
+["Sugar","azúcar","noun","He drinks his coffee without sugar.","Food and drink"],
+["Sweet","dulce","adjective","The mango is very sweet and juicy.","Food and drink"],
+["Taste","sabor / saborear","noun","This dish has a wonderful taste.","Food and drink"],
+["Thirsty","sediento","adjective","I am thirsty – can I have some water?","Food and drink"],
+["Toast","tostada","noun","She had toast with butter for breakfast.","Food and drink"],
+["Tomato","tomate","noun","Tomatoes are used in almost every Colombian dish.","Food and drink"],
+["Turkey","pavo","noun","Many families eat turkey for Christmas dinner.","Food and drink"],
+["Vegetable","verdura","noun","Eat more vegetables to stay healthy.","Food and drink"],
+["Vegetarian","vegetariano","noun/adjective","She is vegetarian and does not eat meat.","Food and drink"],
+
+// ── TOOLS ─────────────────────────────────────────────
+["Drill","taladro","noun","He used a drill to make a hole in the wall.","Tools"],
+["Hammer","martillo","noun","He hit the nail with a hammer.","Tools"],
+["Screwdriver","destornillador","noun","She used a screwdriver to fix the shelf.","Tools"],
+["Pliers","alicates","noun","He used pliers to cut the wire.","Tools"],
+["Saw","sierra","noun","The carpenter cut the wood with a saw.","Tools"],
+["Scissors","tijeras","noun","She cut the paper with scissors.","Tools"],
+["Wrench","llave inglesa / llave de tuerca","noun","The mechanic tightened the bolt with a wrench.","Tools"],
+
+// ── CLOTHES AND ACCESSORIES ───────────────────────────
+["Belt","cinturón / correa","noun","He wore a brown leather belt.","Clothes and accessories"],
+["Blouse","blusa","noun","She wore a white blouse to the interview.","Clothes and accessories"],
+["Boot","bota","noun","He put on his boots to walk in the mud.","Clothes and accessories"],
+["Button","botón","noun","One button was missing from his shirt.","Clothes and accessories"],
+["Cap","gorra","noun","He wore a cap to protect his face from the sun.","Clothes and accessories"],
+["Cloth","tela","noun","She bought colourful cloth to make a dress.","Clothes and accessories"],
+["Raincoat","impermeable","noun","Take your raincoat – it might rain.","Clothes and accessories"],
+["Collar","cuello (camisa)","noun","He loosened his collar after work.","Clothes and accessories"],
+["Cotton","algodón","noun","This T-shirt is made of 100% cotton.","Clothes and accessories"],
+["Shirt","camisa","noun","He wore a formal shirt for the presentation.","Clothes and accessories"],
+["Shoe","zapato","noun","She bought a pair of shoes for the party.","Clothes and accessories"],
+["Shorts","pantalones cortos","noun","He wore shorts at the beach.","Clothes and accessories"],
+["Silk","seda","noun","The tie was made of pure silk.","Clothes and accessories"],
+["Size","talla / tamaño","noun","What size do you wear – small or medium?","Clothes and accessories"],
+["Skirt","falda","noun","She wore a long skirt to the festival.","Clothes and accessories"],
+["Dress","vestido","noun","She wore a beautiful dress to the graduation.","Clothes and accessories"],
+["Earring","arete","noun","She wore gold earrings to the event.","Clothes and accessories"],
+["Fashion","moda","noun","Fast fashion harms the environment.","Clothes and accessories"],
+["Glove","guante","noun","She wore gloves because it was cold.","Clothes and accessories"],
+["Handbag","bolso de mano","noun","She left her handbag on the bus.","Clothes and accessories"],
+["Suit","traje","noun","He wore a suit to the job interview.","Clothes and accessories"],
+["Sweater","suéter / buzo","noun","She put on a warm sweater.","Clothes and accessories"],
+["T-shirt","camiseta","noun","He wore a white T-shirt and jeans.","Clothes and accessories"],
+["Handkerchief","pañuelo","noun","She used a handkerchief to dry her tears.","Clothes and accessories"],
+["Hat","sombrero","noun","A wide hat protects you from the sun.","Clothes and accessories"],
+["Jacket","chaqueta","noun","He put on his jacket before going out.","Clothes and accessories"],
+["Jeans","pantalones vaqueros","noun","She wore jeans and a colourful blouse.","Clothes and accessories"],
+["Jewellery","joyería / joyas","noun","She wore jewellery made by local artisans.","Clothes and accessories"],
+["Leather","cuero","noun","His shoes are made of leather.","Clothes and accessories"],
+["Lipstick","lápiz de labios","noun","She applied red lipstick before the event.","Clothes and accessories"],
+["Make-up","maquillaje","noun","She wore light make-up to the office.","Clothes and accessories"],
+["Tie","corbata","noun","He straightened his tie before the meeting.","Clothes and accessories"],
+["Trousers","pantalones","noun","He ironed his trousers for the interview.","Clothes and accessories"],
+["Swimsuit","traje de baño","noun","She packed her swimsuit for the beach trip.","Clothes and accessories"],
+["Try on","probarse","phrasal verb","She tried on three dresses before choosing one.","Clothes and accessories"],
+["Pocket","bolsillo","noun","He kept his phone in his shirt pocket.","Clothes and accessories"],
+["Pullover","pulóver / suéter","noun","She knitted a pullover for her brother.","Clothes and accessories"],
+["Pyjamas","pijama","noun","He changed into his pyjamas before bed.","Clothes and accessories"],
+["Underwear","ropa interior","noun","She packed clean underwear for the trip.","Clothes and accessories"],
+["Uniform","uniforme","noun","Students must wear their school uniform daily.","Clothes and accessories"],
+["Wear","llevar puesto","verb","She always wears comfortable clothes.","Clothes and accessories"],
+["Umbrella","paraguas","noun","She forgot her umbrella and got wet.","Clothes and accessories"],
+
+// ── HOUSE AND HOME ────────────────────────────────────
+["Address","dirección (domicilio)","noun","Please write your full address on the form.","House and home"],
+["Air conditioning","aire acondicionado","noun","The air conditioning keeps the room cool.","House and home"],
+["Alarm clock","despertador","noun","She set her alarm clock for 6 a.m.","House and home"],
+["Apartment","apartamento","noun","They live in a small apartment in the city.","House and home"],
+["Armchair","sillón","noun","He relaxed in the armchair after work.","House and home"],
+["Balcony","balcón","noun","She drinks her coffee on the balcony.","House and home"],
+["Basement","sótano","noun","They stored old furniture in the basement.","House and home"],
+["Bathroom","baño","noun","The bathroom has a shower and a bathtub.","House and home"],
+["Bedroom","dormitorio","noun","Each child has their own bedroom.","House and home"],
+["Bin","cesto de basura","noun","Please throw the rubbish in the bin.","House and home"],
+["Blanket","manta","noun","She wrapped herself in a blanket on the cold night.","House and home"],
+["Bookshelf","estante de libros","noun","The bookshelf was full of novels.","House and home"],
+["Brick","ladrillo","noun","The house is built with red bricks.","House and home"],
+["Bulb","bombilla","noun","The bulb in the kitchen needs to be changed.","House and home"],
+["Candle","vela","noun","They lit a candle when the light went out.","House and home"],
+["Carpet","alfombra","noun","The carpet in the living room is dark blue.","House and home"],
+["Ceiling","techo (interior)","noun","The ceiling of the old house was very high.","House and home"],
+["Chair","silla","noun","Pull up a chair and sit down.","House and home"],
+["Chimney","chimenea","noun","Smoke came out of the chimney.","House and home"],
+["Clock","reloj","noun","The clock on the wall shows the wrong time.","House and home"],
+["Cooker","cocina / estufa","noun","The cooker has four burners.","House and home"],
+["Corridor","pasillo","noun","The classrooms are along this corridor.","House and home"],
+["Cottage","cabaña","noun","They rented a cosy cottage in the mountains.","House and home"],
+["Cupboard","armario / alacena","noun","The cups are in the kitchen cupboard.","House and home"],
+["Curtain","cortina","noun","She opened the curtains to let in the light.","House and home"],
+["Cushion","cojín","noun","She put two cushions on the sofa.","House and home"],
+["Desk","escritorio","noun","She does her homework at her desk.","House and home"],
+["Dining room","comedor","noun","The family eats together in the dining room.","House and home"],
+["Dishwasher","lavaplatos (máquina)","noun","Put the dishes in the dishwasher.","House and home"],
+["Doorbell","timbre","noun","Ring the doorbell when you arrive.","House and home"],
+["Drawer","cajón","noun","She kept her documents in the top drawer.","House and home"],
+["Fan","ventilador","noun","The fan kept the room cool.","House and home"],
+["Fence","cerco / valla","noun","The garden has a wooden fence around it.","House and home"],
+["Flat","departamento","noun","She rents a small flat near the school.","House and home"],
+["Floor","suelo / piso","noun","The floor was made of polished wood.","House and home"],
+["Freezer","congelador","noun","The ice cream is in the freezer.","House and home"],
+["Fridge","refrigerador","noun","Put the milk back in the fridge.","House and home"],
+["Furniture","mobiliario","noun","They bought new furniture for the bedroom.","House and home"],
+["Garage","garaje","noun","He keeps his tools in the garage.","House and home"],
+["Garden","jardín","noun","The garden has colourful flowers.","House and home"],
+["Gate","puerta / portal","noun","Please close the gate when you leave.","House and home"],
+["Hall","pasillo / sala de entrada","noun","Leave your shoes in the hall.","House and home"],
+["House","casa","noun","They bought a house in the countryside.","House and home"],
+["Iron","plancha","noun","She ironed her school uniform.","House and home"],
+["Kettle","hervidor de agua","noun","She boiled the kettle to make tea.","House and home"],
+["Kitchen","cocina (habitación)","noun","The kitchen smells wonderful.","House and home"],
+["Lamp","lámpara","noun","She turned on the lamp to read.","House and home"],
+["Landlord","propietario","noun","The landlord raised the rent this year.","House and home"],
+["Laptop","computadora portátil","noun","She does all her work on her laptop.","House and home"],
+["Laundry","lavado / ropa sucia","noun","She does the laundry every Saturday.","House and home"],
+["Lawn","césped","noun","He mows the lawn every weekend.","House and home"],
+["Lift","ascensor","noun","Take the lift to the third floor.","House and home"],
+["Living room","sala de estar","noun","The family watches TV in the living room.","House and home"],
+["Lock","cerradura","noun","The lock on the door is broken.","House and home"],
+["Mirror","espejo","noun","She looked at herself in the mirror.","House and home"],
+["Neighbour","vecino","noun","Our neighbours are very friendly.","House and home"],
+["Oven","horno","noun","She baked a cake in the oven.","House and home"],
+["Pillow","almohada","noun","She had two soft pillows on her bed.","House and home"],
+["Plant","planta (vegetal)","noun","She waters her plants every morning.","House and home"],
+["Plug","enchufe","noun","She plugged in the charger.","House and home"],
+["Property","propiedad","noun","They own a large property in the valley.","House and home"],
+["Radio","radio","noun","We listen to the radio while having breakfast.","House and home"],
+["Rent","arriendo / alquilar","noun/verb","They pay 800,000 pesos rent per month.","House and home"],
+["Roof","techo (exterior)","noun","The rain fell loudly on the metal roof.","House and home"],
+["Room","habitación","noun","The house has four rooms.","House and home"],
+["Rubbish","basura","noun","Take the rubbish out before you go.","House and home"],
+["Shelf","estante","noun","Books were arranged neatly on the shelf.","House and home"],
+["Shower","ducha","noun","She takes a shower every morning.","House and home"],
+["Sink","lavadero / fregadero","noun","She washed the dishes in the sink.","House and home"],
+["Sofa","sofá","noun","He fell asleep on the sofa.","House and home"],
+["Stairs","escaleras","noun","She ran down the stairs quickly.","House and home"],
+["Switch","interruptor","noun","Turn off the light switch when you leave.","House and home"],
+["Table","mesa","noun","The family sat around the table for dinner.","House and home"],
+["Tap","grifo / llave del agua","noun","Turn off the tap when brushing your teeth.","House and home"],
+["Telephone","teléfono","noun","She called her mother on the telephone.","House and home"],
+["Television","televisión","noun","The television is on all day in their house.","House and home"],
+["Toilet","inodoro / baño","noun","The toilet is at the end of the corridor.","House and home"],
+["Towel","toalla","noun","She dried her hair with a towel.","House and home"],
+["Vase","jarrón","noun","She put fresh flowers in the vase.","House and home"],
+["Wall","pared","noun","There are paintings on every wall.","House and home"],
+["Window","ventana","noun","Open the window to let in fresh air.","House and home"],
+
+// ── THE NATURAL WORLD ─────────────────────────────────
+["Autumn","otoño","noun","Leaves fall from trees in autumn.","The natural world"],
+["Branch","rama","noun","A bird sat on the branch.","The natural world"],
+["Bush","arbusto","noun","There are wild bushes near the river.","The natural world"],
+["Cave","cueva","noun","They explored a cave in the mountains.","The natural world"],
+["Cliff","acantilado","noun","The path runs along the edge of a cliff.","The natural world"],
+["Climate","clima","noun","Colombia has a tropical climate.","The natural world"],
+["Coast","costa","noun","Cartagena is on the Caribbean coast.","The natural world"],
+["Continent","continente","noun","South America is a continent.","The natural world"],
+["Countryside","campo","noun","She grew up in the Colombian countryside.","The natural world"],
+["Earth","tierra","noun","We must protect the Earth.","The natural world"],
+["Environment","medio ambiente","noun","We must protect the environment for future generations.","The natural world"],
+["Field","campo (sembrado)","noun","The farmer worked in the cornfield all day.","The natural world"],
+["Fish","pez / pescar","noun","Many fish live in the rivers of the Amazon.","The natural world"],
+["Flood","inundación","noun","The heavy rain caused a flood in the valley.","The natural world"],
+["Forest","bosque","noun","The Amazon is the largest tropical forest in the world.","The natural world"],
+["Hill","colina","noun","They walked up the steep hill.","The natural world"],
+["Lake","lago","noun","The lake reflects the mountains.","The natural world"],
+["Land","tierra / terreno","noun","The land here is very fertile.","The natural world"],
+["Leaf","hoja (árbol)","noun","The leaves change colour in autumn.","The natural world"],
+["Mountain","montaña","noun","The Andes mountains cross Colombia from north to south.","The natural world"],
+["Nature","naturaleza","noun","Walking in nature reduces stress.","The natural world"],
+["Pollution","contaminación","noun","Air pollution is a serious problem in big cities.","The natural world"],
+["Rabbit","conejo","noun","Wild rabbits live near the farmhouse.","The natural world"],
+["Rainforest","bosque tropical / selva","noun","The Amazon rainforest is the lungs of the planet.","The natural world"],
+["River","río","noun","The Magdalena river crosses most of Colombia.","The natural world"],
+["Rock","roca / piedra","noun","She sat on a rock by the river.","The natural world"],
+["Sand","arena","noun","The beach has white sand.","The natural world"],
+["Scenery","paisaje","noun","The scenery in the Andes is breathtaking.","The natural world"],
+["Shark","tiburón","noun","Sharks are rarely seen near the coast.","The natural world"],
+["Sky","cielo","noun","The sky was clear and full of stars.","The natural world"],
+["Soil","suelo / tierra","noun","The soil in this region is ideal for coffee.","The natural world"],
+["Spring","primavera","noun","Flowers bloom in spring.","The natural world"],
+["Star","estrella","noun","You can see millions of stars in the countryside.","The natural world"],
+["Summer","verano","noun","Summers are very hot near the coast.","The natural world"],
+["Sunlight","luz del sol","noun","Sunlight is essential for plant growth.","The natural world"],
+["Sunrise","amanecer","noun","We woke up early to watch the sunrise.","The natural world"],
+["Sunset","atardecer / ocaso","noun","The sunset over the mountains was beautiful.","The natural world"],
+["Valley","valle","noun","The valley was green and peaceful.","The natural world"],
+["Waterfall","cascada","noun","Tequendama Falls is a famous waterfall in Colombia.","The natural world"],
+["Waves","olas","noun","The waves were too strong for swimming.","The natural world"],
+["Wild","salvaje","adjective","Wild animals must be protected.","The natural world"],
+["Wildlife","fauna silvestre","noun","The national park protects local wildlife.","The natural world"],
+["Winter","invierno","noun","In the highlands, winters can be very cold.","The natural world"],
+
+// ── WEATHER ───────────────────────────────────────────
+["Blow","soplar","verb","The wind blew strongly all night.","Weather"],
+["Cloud","nube","noun","Black clouds appeared before the storm.","Weather"],
+["Cloudy","nublado","adjective","It was a cloudy morning.","Weather"],
+["Cool","fresco","adjective","The morning was cool and pleasant.","Weather"],
+["Cold","frío","adjective","It is very cold in the mountains at night.","Weather"],
+["Degrees","grados (temperatura)","noun","The temperature is 25 degrees today.","Weather"],
+["Dry","seco","adjective","The dry season lasts from December to March.","Weather"],
+["Forecast","pronóstico del tiempo","noun","The weather forecast says it will rain tomorrow.","Weather"],
+["Frost","escarcha / helada","noun","There was frost on the ground this morning.","Weather"],
+["Fog","niebla","noun","Thick fog covered the valley.","Weather"],
+["Foggy","con neblina","adjective","It was too foggy to drive safely.","Weather"],
+["Gale","ventarrón / vendaval","noun","A gale blew branches off the trees.","Weather"],
+["Heat","calor","noun","The heat was unbearable at midday.","Weather"],
+["Ice","hielo","noun","The road was covered in ice.","Weather"],
+["Lightning","relámpago","noun","Lightning lit up the night sky.","Weather"],
+["Mild","templado / suave","adjective","The weather was mild – perfect for a walk.","Weather"],
+["Rain","lluvia","noun","Rain is important for crops and rivers.","Weather"],
+["Shower","aguacero / ducha","noun","There will be showers in the afternoon.","Weather"],
+["Snow","nieve","noun","Snow falls in the highest parts of the Andes.","Weather"],
+["Snowfall","nevada","noun","The heavy snowfall blocked the mountain pass.","Weather"],
+["Storm","tormenta","noun","A storm damaged many houses last night.","Weather"],
+["Sunny","soleado","adjective","It is a sunny day – let us go to the park!","Weather"],
+["Sunshine","brillo del sol","noun","The children played in the warm sunshine.","Weather"],
+["Temperature","temperatura","noun","The temperature rarely drops below 10 degrees here.","Weather"],
+["Thermometer","termómetro","noun","The thermometer showed 35 degrees.","Weather"],
+["Thunder","trueno","noun","Thunder woke everyone up during the storm.","Weather"],
+["Wet","húmedo / mojado","adjective","The grass was wet after the rain.","Weather"],
+["Wind","viento","noun","A strong wind blew across the plain.","Weather"],
+["Windy","ventoso","adjective","It was a windy day on the coast.","Weather"],
+
+// ── ENTERTAINMENT AND MEDIA ───────────────────────────
+["Act","actuar","verb","She acts in the school theatre group.","Entertainment and media"],
+["Actor","actor","noun","The actor won an award for his performance.","Entertainment and media"],
+["Actress","actriz","noun","She is a well-known Colombian actress.","Entertainment and media"],
+["Advertisement","anuncio publicitario","noun","The advertisement was creative and funny.","Entertainment and media"],
+["Adventure","aventura","noun","She loves reading adventure stories.","Entertainment and media"],
+["Audience","audiencia / público","noun","The audience applauded at the end.","Entertainment and media"],
+["Ballet","ballet","noun","She has taken ballet classes since she was five.","Entertainment and media"],
+["Band","banda musical","noun","The school band performed at the festival.","Entertainment and media"],
+["Cartoon","dibujos animados","noun","She watched cartoons every Saturday morning.","Entertainment and media"],
+["Channel","canal de televisión","noun","Which TV channel do you prefer?","Entertainment and media"],
+["Cinema","cine","noun","We went to the cinema to see a new film.","Entertainment and media"],
+["Classical music","música clásica","noun","She plays classical music on the violin.","Entertainment and media"],
+["Comedy","comedia","noun","We watched a comedy that made us laugh all night.","Entertainment and media"],
+["Comic","historieta / cómic","noun","He collects old comics from the 1980s.","Entertainment and media"],
+["Concert","concierto","noun","The concert in the plaza was fantastic.","Entertainment and media"],
+["Dance","danza / bailar","noun/verb","Colombian cumbia is a traditional dance.","Entertainment and media"],
+["Documentary","documental","noun","The documentary about the Amazon was fascinating.","Entertainment and media"],
+["Drama","drama","noun","She studies drama at the art school.","Entertainment and media"],
+["Exhibition","exposición","noun","The photo exhibition attracted many visitors.","Entertainment and media"],
+["Festival","festival","noun","The music festival takes place every year.","Entertainment and media"],
+["Film","película","noun","Have you seen the new Colombian film?","Entertainment and media"],
+["Folk music","música folclórica","noun","Folk music reflects the culture of a region.","Entertainment and media"],
+["Hero","héroe","noun","The hero saved the village from the flood.","Entertainment and media"],
+["Magazine","revista","noun","She reads an English magazine every week.","Entertainment and media"],
+["Music","música","noun","Music connects people across cultures.","Entertainment and media"],
+["News","noticias","noun","She watches the evening news every day.","Entertainment and media"],
+["Newspaper","periódico","noun","He reads the newspaper every morning.","Entertainment and media"],
+["Opera","ópera","noun","They went to the opera for their anniversary.","Entertainment and media"],
+["Orchestra","orquesta","noun","The city orchestra performed in the theatre.","Entertainment and media"],
+["Performance","actuación / función","noun","The dance performance received a standing ovation.","Entertainment and media"],
+["Play","obra de teatro","noun","The school put on a play about independence.","Entertainment and media"],
+["Poem","poema","noun","She recited a poem in front of the class.","Entertainment and media"],
+["Pop music","música pop","noun","Pop music is very popular with teenagers.","Entertainment and media"],
+["Programme","programa","noun","What is your favourite TV programme?","Entertainment and media"],
+["Recording","grabación","noun","The recording of the concert was excellent.","Entertainment and media"],
+["Review","reseña / crítica","noun","The film got a very positive review.","Entertainment and media"],
+["Rock music","música rock","noun","He plays rock music in a garage band.","Entertainment and media"],
+["Scene","escena","noun","The final scene of the play was very moving.","Entertainment and media"],
+["Screen","pantalla","noun","The screen was too small to see well.","Entertainment and media"],
+["Series","serie","noun","She has watched all seasons of the series.","Entertainment and media"],
+["Stage","escenario","noun","The actors walked onto the stage.","Entertainment and media"],
+["Star","estrella (famoso)","noun","She is a star in the Colombian music industry.","Entertainment and media"],
+["Studio","estudio (grabación)","noun","The band recorded their album in a studio.","Entertainment and media"],
+["Thriller","película de suspenso","noun","He loves reading thrillers before bed.","Entertainment and media"],
+["Venue","sitio / lugar del evento","noun","The concert venue held 5,000 people.","Entertainment and media"],
+
+// ── EDUCATION ─────────────────────────────────────────
+["Absent","ausente","adjective","She was absent on Monday because she was ill.","Education"],
+["Advanced","avanzado","adjective","This is an advanced English course.","Education"],
+["Bell","campana","noun","The bell rang to signal the end of class.","Education"],
+["Biology","biología","noun","We studied the human body in biology.","Education"],
+["Board","pizarra / tablero","noun","The teacher wrote the vocabulary on the board.","Education"],
+["Break time","recreo / descanso","noun","We play football during break time.","Education"],
+["Certificate","certificado","noun","She received a certificate for completing the course.","Education"],
+["Chemistry","química","noun","The chemistry experiment produced a gas.","Education"],
+["Classroom","aula / salón","noun","The classroom has 30 students.","Education"],
+["College","universidad / instituto","noun","He plans to study engineering at college.","Education"],
+["Composition","composición escrita","noun","We had to write a composition about our holidays.","Education"],
+["Course","curso","noun","She is taking an online English course.","Education"],
+["Curriculum","plan de estudios","noun","The curriculum includes maths, science and English.","Education"],
+["Degree","grado / título","noun","She got her degree in education.","Education"],
+["Desk","pupitre / escritorio","noun","He sat at his desk and opened his notebook.","Education"],
+["Drama","teatro escolar","noun","Drama helps students develop confidence.","Education"],
+["Economics","economía","noun","She is studying economics and business.","Education"],
+["Educate","educar","verb","Schools educate children for the future.","Education"],
+["Essay","ensayo","noun","She wrote an excellent essay about the environment.","Education"],
+["Geography","geografía","noun","We learned about Colombian rivers in geography.","Education"],
+["History","historia","noun","History teaches us about the past.","Education"],
+["Intermediate","intermedio","adjective","She is at an intermediate level in English.","Education"],
+["Languages","idiomas","noun","She speaks three languages: Spanish, English and French.","Education"],
+["Lesson","lección / clase","noun","The English lesson lasts 60 minutes.","Education"],
+["Mark","nota / calificación","noun","She got the highest mark in the exam.","Education"],
+["Mathematics","matemáticas","noun","Mathematics is necessary for engineering.","Education"],
+["Notice board","periódico mural","noun","Check the notice board for exam timetables.","Education"],
+["Photography","fotografía","noun","Photography is an optional subject at school.","Education"],
+["Physics","física","noun","She finds physics difficult but interesting.","Education"],
+["Primary school","escuela primaria","noun","She teaches at a primary school.","Education"],
+["Qualification","título / credencial","noun","He has excellent qualifications for the job.","Education"],
+["Register","registro / lista de asistencia","noun","The teacher called the register every morning.","Education"],
+["Science","ciencia","noun","Science helps us understand the world.","Education"],
+["Secondary school","colegio / bachillerato","noun","She is in her last year of secondary school.","Education"],
+["Subject","materia / asignatura","noun","English is her favourite subject.","Education"],
+["Technology","tecnología","noun","Technology has changed education forever.","Education"],
+
+// ── HEALTH, MEDICINE AND EXERCISE ─────────────────────
+["Accident","accidente","noun","She had an accident and broke her arm.","Health, medicine and exercise"],
+["Ache","dolor continuo","noun","She had a headache all morning.","Health, medicine and exercise"],
+["Ambulance","ambulancia","noun","The ambulance arrived in five minutes.","Health, medicine and exercise"],
+["Appointment","cita médica","noun","She made an appointment with the doctor.","Health, medicine and exercise"],
+["Aspirin","aspirina","noun","He took an aspirin for his headache.","Health, medicine and exercise"],
+["Bandage","venda","noun","The nurse put a bandage on his wound.","Health, medicine and exercise"],
+["Cut","corte","noun","She got a cut on her finger while cooking.","Health, medicine and exercise"],
+["Damage","daño","noun","The accident caused serious damage to his knee.","Health, medicine and exercise"],
+["Diet","dieta","noun","A balanced diet is key to good health.","Health, medicine and exercise"],
+["Death","muerte","noun","The doctor explained the cause of death.","Health, medicine and exercise"],
+["Earache","dolor de oído","noun","She had a terrible earache and saw the doctor.","Health, medicine and exercise"],
+["Emergency","emergencia","noun","Call 123 in case of emergency.","Health, medicine and exercise"],
+["Sick","enfermo","adjective","He was sick and could not go to school.","Health, medicine and exercise"],
+["Fever","fiebre","noun","The child had a high fever.","Health, medicine and exercise"],
+["Flu","gripe / gripa","noun","She stayed home for a week with the flu.","Health, medicine and exercise"],
+["Pain","dolor","noun","He felt strong pain in his back.","Health, medicine and exercise"],
+["Jogging","trotar","noun","She goes jogging to keep fit.","Health, medicine and exercise"],
+["Headache","dolor de cabeza","noun","Too much screen time causes headaches.","Health, medicine and exercise"],
+["Hospital","hospital","noun","He spent two nights in hospital.","Health, medicine and exercise"],
+["Hurt","lastimar","verb","He hurt his ankle playing football.","Health, medicine and exercise"],
+["Keep fit","mantenerse en forma","phrasal verb","She exercises every day to keep fit.","Health, medicine and exercise"],
+["Medicine","medicina","noun","Take this medicine three times a day.","Health, medicine and exercise"],
+["Operate","operar","verb","The surgeon will operate tomorrow morning.","Health, medicine and exercise"],
+["Operation","operación","noun","The operation was successful.","Health, medicine and exercise"],
+["Pill","píldora","noun","She takes a vitamin pill every morning.","Health, medicine and exercise"],
+["Recover","recuperarse","verb","It takes time to recover from the flu.","Health, medicine and exercise"],
+["Insurance","seguro (médico)","noun","The insurance covered all hospital costs.","Health, medicine and exercise"],
+["Sore throat","dolor de garganta","noun","She had a sore throat and could not speak loudly.","Health, medicine and exercise"],
+["Stomachache","dolor de estómago","noun","He had a stomachache after eating too much.","Health, medicine and exercise"],
+["Stress","estrés / tensión","noun","Exam stress can affect your sleep.","Health, medicine and exercise"],
+["Tablet","tableta / pastilla","noun","The doctor prescribed two tablets a day.","Health, medicine and exercise"],
+["Exercise","ejercicio","noun","Regular exercise reduces the risk of disease.","Health, medicine and exercise"],
+["Temperature","temperatura (fiebre)","noun","She had a temperature of 39 degrees.","Health, medicine and exercise"],
+["Wound","herida","noun","The wound was cleaned and covered.","Health, medicine and exercise"],
+
+// ── BUSINESS VERBS ────────────────────────────────────
+["Accept","aceptar","verb","She accepted the job offer immediately.","Business verbs"],
+["Add","añadir / agregar","verb","Add the final figures to the report.","Business verbs"],
+["Admit","admitir","verb","He admitted making a mistake.","Business verbs"],
+["Advertise","anunciar / publicitar","verb","They advertised the product on social media.","Business verbs"],
+["Advise","aconsejar","verb","The lawyer advised her to sign the contract.","Business verbs"],
+["Afford","poder pagar","verb","We cannot afford to buy new equipment now.","Business verbs"],
+["Approve","aprobar","verb","The manager approved the new project.","Business verbs"],
+["Authorize","autorizar","verb","Only the director can authorize this payment.","Business verbs"],
+["Avoid","evitar","verb","We must avoid unnecessary expenses.","Business verbs"],
+["Borrow","pedir prestado","verb","The company borrowed money from the bank.","Business verbs"],
+["Build","construir","verb","They plan to build a new factory.","Business verbs"],
+["Calculate","calcular","verb","He calculated the total costs.","Business verbs"],
+["Charge","cobrar","verb","How much do they charge for delivery?","Business verbs"],
+["Choose","escoger","verb","She chose the best supplier.","Business verbs"],
+["Complain","quejarse","verb","Customers complained about the service.","Business verbs"],
+["Complete","completar","verb","Please complete the form and sign it.","Business verbs"],
+["Confirm","confirmar","verb","Please confirm your attendance by Friday.","Business verbs"],
+["Consider","considerar","verb","We must consider all the options.","Business verbs"],
+["Convince","convencer","verb","He convinced the team to try a new strategy.","Business verbs"],
+["Decide","decidir","verb","We decided to expand the business.","Business verbs"],
+["Decrease","disminuir","verb","Sales decreased during the rainy season.","Business verbs"],
+["Deliver","entregar / distribuir","verb","They delivered the order on time.","Business verbs"],
+["Develop","desarrollar","verb","The company developed a new app.","Business verbs"],
+["Dismiss","despedir","verb","He was dismissed for arriving late repeatedly.","Business verbs"],
+["Distribute","distribuir","verb","They distribute products across the country.","Business verbs"],
+["Divide","dividir","verb","Divide the profits equally among the partners.","Business verbs"],
+["Employ","emplear","verb","The factory employs 200 workers.","Business verbs"],
+["Encourage","motivar / animar","verb","The manager encouraged his team.","Business verbs"],
+["Establish","establecer","verb","The company was established in 1995.","Business verbs"],
+["Estimate","estimar","verb","We estimated the cost at two million pesos.","Business verbs"],
+["Exchange","intercambiar","verb","They exchanged ideas during the meeting.","Business verbs"],
+["Extend","extender / ampliar","verb","They extended the deadline by one week.","Business verbs"],
+["Fund","financiar","verb","The government funded the new school.","Business verbs"],
+["Improve","mejorar","verb","We must improve the quality of our service.","Business verbs"],
+["Increase","aumentar","verb","Profits increased by 15% this year.","Business verbs"],
+["Inform","informar","verb","Please inform the team about the changes.","Business verbs"],
+["Install","instalar","verb","They installed new computers in the lab.","Business verbs"],
+["Invest","invertir","verb","She decided to invest in education.","Business verbs"],
+["Join","unir / unirse a","verb","New employees will join the team next month.","Business verbs"],
+["Lend","prestar","verb","The bank agreed to lend the money.","Business verbs"],
+["Lower","bajar / reducir","verb","They lowered the price to attract more customers.","Business verbs"],
+["Maintain","mantener","verb","We must maintain high standards.","Business verbs"],
+["Manage","gestionar / manejar","verb","She manages a team of ten people.","Business verbs"],
+["Measure","medir","verb","We measure performance every quarter.","Business verbs"],
+["Mention","mencionar","verb","She mentioned the problem at the meeting.","Business verbs"],
+["Obtain","obtener","verb","He obtained a business licence.","Business verbs"],
+["Order","ordenar / pedir","verb","She ordered new supplies for the office.","Business verbs"],
+["Organize","organizar","verb","He organized the annual company event.","Business verbs"],
+["Participate","participar","verb","All students must participate in the project.","Business verbs"],
+["Pay","pagar","verb","They pay salaries on the last Friday of the month.","Business verbs"],
+["Plan","planear","verb","We planned the campaign carefully.","Business verbs"],
+["Present","presentar","verb","She presented the results to the board.","Business verbs"],
+["Prevent","prevenir","verb","Good training prevents accidents.","Business verbs"],
+["Produce","producir","verb","The factory produces 1,000 units per day.","Business verbs"],
+["Promise","prometer","verb","She promised to deliver the report by Friday.","Business verbs"],
+["Promote","promover / ascender","verb","He was promoted to manager.","Business verbs"],
+["Provide","proporcionar","verb","The school provides free textbooks.","Business verbs"],
+["Purchase","comprar","verb","They purchased new equipment.","Business verbs"],
+["Raise","levantar / aumentar","verb","The company raised salaries this year.","Business verbs"],
+["Receive","recibir","verb","They received a large order from abroad.","Business verbs"],
+["Recruit","reclutar","verb","The company is recruiting new engineers.","Business verbs"],
+["Reduce","reducir","verb","We must reduce costs without lowering quality.","Business verbs"],
+["Refuse","rechazar","verb","She refused to sign the unfair contract.","Business verbs"],
+["Remind","recordar (a alguien)","verb","Please remind me about the meeting.","Business verbs"],
+["Reply","responder","verb","She replied to the email within an hour.","Business verbs"],
+["Resign","renunciar","verb","He resigned from his position last week.","Business verbs"],
+["Return","regresar / devolver","verb","The client returned the defective product.","Business verbs"],
+["Rise","subir / elevarse","verb","The cost of living has risen sharply.","Business verbs"],
+["Sell","vender","verb","They sell their products online.","Business verbs"],
+["Send","enviar","verb","She sent the invoice by email.","Business verbs"],
+["Succeed","tener éxito","verb","The new strategy succeeded.","Business verbs"],
+["Suggest","sugerir","verb","She suggested a new approach to the problem.","Business verbs"],
+
+// ── PLACES: TOWN AND CITY ─────────────────────────────
+["Bridge","puente","noun","The bridge connects the two sides of the valley.","Places: town and city"],
+["Car park","parqueadero","noun","The car park is behind the shopping centre.","Places: town and city"],
+["City centre","centro de la ciudad","noun","All the main banks are in the city centre.","Places: town and city"],
+["Corner","esquina","noun","There is a bakery on the corner.","Places: town and city"],
+["Crossing","cruce peatonal","noun","Use the pedestrian crossing to be safe.","Places: town and city"],
+["Crossroads","intersección de caminos","noun","Go straight at the crossroads.","Places: town and city"],
+["Fountain","fuente de agua","noun","Children played around the fountain in the plaza.","Places: town and city"],
+["Pavement","acera / vereda","noun","Always walk on the pavement.","Places: town and city"],
+["Petrol station","estación de gasolina","noun","The petrol station is two kilometres away.","Places: town and city"],
+["Playground","patio de recreo","noun","Children played in the school playground.","Places: town and city"],
+["Road","camino / carretera","noun","The road to the village is unpaved.","Places: town and city"],
+["Roundabout","glorieta","noun","The hospital is just past the roundabout.","Places: town and city"],
+
+// ── ANIMALS ───────────────────────────────────────────
+["Alligator","caimán","noun","Alligators live in tropical rivers.","Animals"],
+["Cheetah","guepardo","noun","The cheetah is the fastest land animal.","Animals"],
+["Chimpanzee","chimpancé","noun","Chimpanzees are very intelligent animals.","Animals"],
+["Crocodile","cocodrilo","noun","Crocodiles are dangerous reptiles.","Animals"],
+["Deer","ciervo / venado","noun","A deer ran across the road.","Animals"],
+["Dolphin","delfín","noun","Dolphins are friendly and intelligent.","Animals"],
+["Eagle","águila","noun","The eagle is a symbol of freedom.","Animals"],
+["Goldfish","pez dorado","noun","She has a goldfish in a bowl at home.","Animals"],
+["Leopard","leopardo","noun","The leopard hunts at night.","Animals"],
+["Lizard","lagarto","noun","A small lizard sat on the stone wall.","Animals"],
+["Lobster","langosta","noun","Lobster is an expensive seafood.","Animals"],
+["Octopus","pulpo","noun","An octopus has eight arms.","Animals"],
+["Ostrich","avestruz","noun","The ostrich cannot fly but runs very fast.","Animals"],
+["Otter","nutria","noun","Otters love swimming in clean rivers.","Animals"],
+["Owl","búho","noun","Owls are active at night.","Animals"],
+["Oyster","ostra","noun","Oysters are found near the coast.","Animals"],
+["Panda","panda","noun","Pandas eat bamboo and are endangered.","Animals"],
+["Pigeon","paloma","noun","There were many pigeons in the town square.","Animals"],
+["Porcupine","puerco espín","noun","A porcupine defends itself with sharp quills.","Animals"],
+["Reindeer","reno","noun","Reindeer live in very cold regions.","Animals"],
+["Rooster","gallo","noun","The rooster crowed at dawn.","Animals"],
+["Scorpion","escorpión","noun","Be careful of scorpions in the jungle.","Animals"],
+["Seal","foca","noun","Seals live near the sea and eat fish.","Animals"],
+["Shark","tiburón","noun","Sharks are at the top of the ocean food chain.","Animals"],
+["Sheep","oveja","noun","Sheep provide wool and milk.","Animals"],
+["Shrimp","camarón","noun","Shrimp is popular in Colombian coastal food.","Animals"],
+["Snail","caracol","noun","A snail moves very slowly.","Animals"],
+["Snake","serpiente","noun","Some snakes in Colombia are venomous.","Animals"],
+["Sparrow","gorrión","noun","A sparrow built its nest near the window.","Animals"],
+["Spider","araña","noun","A spider spun a web in the corner.","Animals"],
+["Squid","calamar","noun","Squid is a common ingredient in seafood dishes.","Animals"],
+["Squirrel","ardilla","noun","Squirrels store nuts for the winter.","Animals"],
+["Swan","cisne","noun","A white swan swam across the lake.","Animals"],
+["Toad","sapo","noun","A toad sat near the pond.","Animals"],
+["Tortoise","tortuga (tierra)","noun","A tortoise moves slowly but lives long.","Animals"],
+["Turtle","tortuga (agua)","noun","Sea turtles lay their eggs on the beach.","Animals"],
+["Vulture","buitre","noun","Vultures circle above dead animals.","Animals"],
+["Walrus","morsa","noun","Walruses have large tusks and live in the Arctic.","Animals"],
+["Whale","ballena","noun","Humpback whales visit the Colombian Pacific coast.","Animals"],
+["Wolf","lobo","noun","Wolves live and hunt in packs.","Animals"],
+["Zebra","cebra","noun","Zebras have black and white stripes.","Animals"],
+
+// ── PREPOSITIONS ──────────────────────────────────────
+["About","sobre / acerca de","preposition","The book is about the history of Colombia.","Prepositions"],
+["Above","encima de","preposition","The plane flew above the clouds.","Prepositions"],
+["Across","a través de / al otro lado","preposition","She swam across the river.","Prepositions"],
+["After","después de","preposition","We had ice cream after dinner.","Prepositions"],
+["Against","contra","preposition","She leaned against the wall.","Prepositions"],
+["Along","a lo largo de","preposition","They walked along the river.","Prepositions"],
+["Amongst","entre (varios)","preposition","She was the best amongst all candidates.","Prepositions"],
+["Around","alrededor de","preposition","The children ran around the playground.","Prepositions"],
+["Before","antes de","preposition","Wash your hands before eating.","Prepositions"],
+["Behind","detrás de","preposition","The dog hid behind the sofa.","Prepositions"],
+["Below","debajo de","preposition","The temperature fell below zero.","Prepositions"],
+["Beneath","bajo / debajo de","preposition","The cat slept beneath the table.","Prepositions"],
+["Beside","al lado de","preposition","She sat beside her best friend.","Prepositions"],
+["Besides","además de","preposition","Besides English, she speaks French.","Prepositions"],
+["Except","excepto / menos","preposition","Everyone passed the test except one student.","Prepositions"],
+["Inside","dentro de","preposition","The key is inside the drawer.","Prepositions"],
+["Outside","fuera de","preposition","Wait outside the classroom, please.","Prepositions"],
+["Opposite","enfrente de","preposition","The bank is opposite the school.","Prepositions"],
+["Over","encima de / sobre","preposition","The cat jumped over the wall.","Prepositions"],
+["Between","entre (dos)","preposition","The park is between the school and the hospital.","Prepositions"],
+["Beyond","más allá de","preposition","The mountains are beyond the valley.","Prepositions"],
+["Despite","a pesar de","preposition","Despite the rain, they continued walking.","Prepositions"],
+["Through","a través de","preposition","Light came through the window.","Prepositions"],
+["Until","hasta","preposition","She studied until midnight.","Prepositions"],
+["Towards","hacia","preposition","She walked towards the door.","Prepositions"],
+["Within","dentro de (tiempo/espacio)","preposition","The results will be ready within a week.","Prepositions"],
+["Without","sin","preposition","She left without saying goodbye.","Prepositions"],
+
+// ── COMPUTER ──────────────────────────────────────────
+["Click","hacer clic","verb","Click on the link to open the page.","Computer"],
+["Copy","copiar","verb","Copy the text and paste it here.","Computer"],
+["Cut","cortar (texto)","verb","Cut the paragraph and move it.","Computer"],
+["Command","orden / comando","noun","Use this command to save the file.","Computer"],
+["Database","base de datos","noun","The database contains all student records.","Computer"],
+["Delete","borrar / eliminar","verb","Delete the file if you no longer need it.","Computer"],
+["Digital","digital","adjective","We live in a digital world.","Computer"],
+["File","archivo","noun","Save the file before closing the program.","Computer"],
+["Find","encontrar / buscar","verb","Use Ctrl+F to find a word in the document.","Computer"],
+["Font","fuente tipográfica","noun","Change the font to make the text easier to read.","Computer"],
+["Format","formato","noun","What format should I save the image in?","Computer"],
+["Graphic","gráfico","noun","She designed graphics for the website.","Computer"],
+["Icon","icono","noun","Double-click the icon to open the program.","Computer"],
+["Hardware","hardware (parte física)","noun","The hardware needs to be updated.","Computer"],
+["Input","entrada / ingreso de datos","noun","Enter your input in the first field.","Computer"],
+["Interactive","interactivo","adjective","Interactive apps make learning more engaging.","Computer"],
+["Internet","internet","noun","The internet connects people worldwide.","Computer"],
+["Keyboard","teclado","noun","She typed quickly on the keyboard.","Computer"],
+["Browse","navegar / explorar","verb","She browsed the internet for information.","Computer"],
+["Memory","memoria","noun","The computer needs more memory to run faster.","Computer"],
+["Menu","menú","noun","Go to the File menu and select Save.","Computer"],
+["Modem","módem","noun","A modem is needed to connect to the internet.","Computer"],
+["Mouse","ratón (computadora)","noun","She moved the mouse to select the text.","Computer"],
+["Network","red (informática)","noun","Connect to the school network for the exam.","Computer"],
+["Output","salida / resultado","noun","The output of the program was a table.","Computer"],
+["Paste","pegar (texto)","verb","Copy the address and paste it in the browser.","Computer"],
+["Printer","impresora","noun","The printer is out of ink.","Computer"],
+["Replace","reemplazar","verb","Use Find and Replace to correct the error.","Computer"],
+["Save","guardar","verb","Remember to save your work every few minutes.","Computer"],
+["Scanner","escáner","noun","She scanned the document with the scanner.","Computer"],
+["Search","búsqueda / buscar","noun/verb","Use a search engine to find information.","Computer"],
+["Select","seleccionar","verb","Select all the text and change the font.","Computer"],
+["Software","software (parte lógica)","noun","This software helps you edit photos.","Computer"],
+["Text","texto","noun","The text should be clear and well-organized.","Computer"],
+["Download","descargar","verb","Download the app from the official website.","Computer"],
+["Upload","cargar / subir","verb","Upload your work to the school platform.","Computer"],
+["Scroll","desplazar (pantalla)","verb","Scroll down to see the rest of the page.","Computer"]
+];
+
+// ════════════════════════════════════════════════════════
+//  CATEGORY ICONS
+// ════════════════════════════════════════════════════════
+const CAT_ICONS = {
+  "Travel and transport":"✈️",
+  "Bank":"🏦",
+  "Sport":"⚽",
+  "Hobbies and leisure":"🎨",
+  "Works and Jobs":"💼",
+  "Adverbs of time":"⏰",
+  "Food and drink":"🍽️",
+  "Tools":"🔧",
+  "Clothes and accessories":"👗",
+  "House and home":"🏠",
+  "The natural world":"🌿",
+  "Weather":"🌤️",
+  "Entertainment and media":"🎬",
+  "Education":"📚",
+  "Health, medicine and exercise":"🏥",
+  "Business verbs":"📊",
+  "Places: town and city":"🏙️",
+  "Animals":"🦁",
+  "Prepositions":"📍",
+  "Computer":"💻"
+};
+
+// ════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════
+let filteredWords = [...VOCAB];
+let fcIndex = 0;
+let fcWords  = [];
+let fcFlipped = false;
+let qIndex = 0, qOk = 0, qFail = 0;
+let qWords  = [];
+const QUIZ_LEN = 10;
+
+// ════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════
+(function init(){
+  document.getElementById('totalWords').textContent = VOCAB.length;
+  // Populate category filter
+  const cats = [...new Set(VOCAB.map(w=>w[4]))];
+  const sel = document.getElementById('catFilter');
+  cats.forEach(c=>{
+    const o = document.createElement('option');
+    o.value = c; o.textContent = `${CAT_ICONS[c]||''} ${c}`;
+    sel.appendChild(o);
+  });
+  renderLista(VOCAB);
+  updateCount(VOCAB.length);
+  fcWords = shuffle([...VOCAB]);
+  renderFlash();
+})();
+
+// ════════════════════════════════════════════════════════
+//  SECTIONS
+// ════════════════════════════════════════════════════════
+function showSection(id, btn){
+  ['lista','flash','quiz'].forEach(s=>{
+    document.getElementById('sec'+cap(s)).style.display = s===id?'':'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(id==='flash'){ fcWords=shuffle([...filteredWords.length?filteredWords:VOCAB]); fcIndex=0; renderFlash(); }
+  if(id==='quiz') startQuiz();
+}
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+// ════════════════════════════════════════════════════════
+//  LISTA
+// ════════════════════════════════════════════════════════
+function filterWords(){
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const cat = document.getElementById('catFilter').value;
+  filteredWords = VOCAB.filter(w=>{
+    const matchQ = !q || w[0].toLowerCase().includes(q) || w[1].toLowerCase().includes(q);
+    const matchC = !cat || w[4]===cat;
+    return matchQ && matchC;
+  });
+  renderLista(filteredWords);
+  updateCount(filteredWords.length);
+}
+
+function renderLista(words){
+  const container = document.getElementById('listaContainer');
+  const empty = document.getElementById('emptyMsg');
+  if(!words.length){ container.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+
+  const byCat = {};
+  words.forEach(w=>{ (byCat[w[4]]=byCat[w[4]]||[]).push(w); });
+
+  container.innerHTML = Object.entries(byCat).map(([cat,ws])=>`
+    <div class="cat-group">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-icon">${CAT_ICONS[cat]||'📖'}</span>
+        <span class="cat-name">${cat}</span>
+        <span class="cat-count">${ws.length}</span>
+        <span class="cat-toggle">▼</span>
+      </div>
+      <div class="word-grid">
+        ${ws.map(w=>wordCard(w)).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function wordCard(w){
+  const posColors = {verb:'#f0a500',noun:'#003366',adjective:'#16a34a',adverb:'#7c3aed','phrasal verb':'#dc2626',preposition:'#0891b2','noun/verb':'#9333ea','noun/adjective':'#065f46'};
+  const posLabel = w[2].length > 12 ? w[2].split('/')[0] : w[2];
+  return `<div class="word-card">
+    <div>
+      <span class="word-en">${w[0]}</span>
+      <span class="word-pos" style="background:${posColors[w[2]]||'#4b5563'}">${posLabel}</span>
+    </div>
+    <div class="word-es">🇨🇴 ${w[1]}</div>
+    <div class="word-ex"><em>${w[0]}</em> — ${w[3]}</div>
+  </div>`;
+}
+
+function toggleCat(header){
+  header.classList.toggle('collapsed');
+  const grid = header.nextElementSibling;
+  grid.style.display = header.classList.contains('collapsed') ? 'none' : 'grid';
+}
+
+function updateCount(n){
+  document.getElementById('countBadge').textContent = `${n} palabra${n!==1?'s':''}`;
+}
+
+// ════════════════════════════════════════════════════════
+//  FLASHCARDS
+// ════════════════════════════════════════════════════════
+function renderFlash(){
+  if(!fcWords.length) return;
+  const w = fcWords[fcIndex];
+  document.getElementById('fcWord').textContent  = w[0];
+  document.getElementById('fcPos').textContent   = w[2];
+  document.getElementById('fcCat').textContent   = `${CAT_ICONS[w[4]]||''} ${w[4]}`;
+  document.getElementById('fcTrans').textContent = w[1];
+  document.getElementById('fcEx').textContent    = w[3];
+  document.getElementById('fcCurrent').textContent = fcIndex+1;
+  document.getElementById('fcTotal').textContent   = fcWords.length;
+  const pct = ((fcIndex+1)/fcWords.length*100).toFixed(1);
+  document.getElementById('fcProgressFill').style.width = pct+'%';
+  // reset flip
+  if(fcFlipped){ document.getElementById('fcInner').classList.remove('flipped'); fcFlipped=false; }
+}
+
+function flipCard(){
+  fcFlipped = !fcFlipped;
+  document.getElementById('fcInner').classList.toggle('flipped', fcFlipped);
+}
+
+function fcMove(dir){
+  fcIndex = (fcIndex+dir+fcWords.length)%fcWords.length;
+  fcFlipped = false;
+  renderFlash();
+}
+
+function fcShuffle(){
+  fcWords = shuffle([...fcWords]);
+  fcIndex = 0;
+  renderFlash();
+}
+
+// ════════════════════════════════════════════════════════
+//  QUIZ
+// ════════════════════════════════════════════════════════
+function startQuiz(){
+  qOk=0; qFail=0;
+  qWords = shuffle([...(filteredWords.length>=10?filteredWords:VOCAB)]).slice(0,QUIZ_LEN);
+  qIndex = 0;
+  updateQStats();
+  renderQuestion();
+}
+
+function updateQStats(){
+  document.getElementById('qOk').textContent   = qOk;
+  document.getElementById('qFail').textContent = qFail;
+  document.getElementById('qProgress').textContent = `Pregunta ${qIndex+1} / ${QUIZ_LEN}`;
+}
+
+function renderQuestion(){
+  const container = document.getElementById('quizContainer');
+  if(qIndex>=QUIZ_LEN){ renderResult(container); return; }
+
+  const w = qWords[qIndex];
+  const types = ['es_to_en','en_to_es','fill_blank'];
+  const type  = types[qIndex % types.length];
+
+  let question='', context='', answer='', options=[];
+
+  if(type==='es_to_en'){
+    question = `¿Cuál es la palabra en inglés para: <span class="highlight-word">${w[1]}</span>?`;
+    answer   = w[0];
+    options  = getOptions(w[0],0);
+  } else if(type==='en_to_es'){
+    question = `¿Qué significa en español: <span class="highlight-word">${w[0]}</span>?`;
+    answer   = w[1];
+    options  = getOptions(w[1],1);
+  } else {
+    // fill in context
+    const blanked = w[3].replace(new RegExp(w[0],'i'),'______');
+    question = `Elige la palabra que completa el ejemplo:`;
+    context  = blanked;
+    answer   = w[0];
+    options  = getOptions(w[0],0);
+  }
+
+  const typeLabels={'es_to_en':'Inglés ↔ Español','en_to_es':'Español ↔ Inglés','fill_blank':'Completa la oración'};
+
+  container.innerHTML = `
+    <div class="quiz-card">
+      <span class="quiz-type-badge">${typeLabels[type]}</span>
+      <div class="quiz-question">${question}</div>
+      ${context?`<div class="quiz-context">"${context}"</div>`:''}
+      <div class="options-grid">
+        ${options.map(o=>`<button class="opt-btn" onclick="checkAnswer(this,'${escQ(o)}','${escQ(answer)}')">${o}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <button class="btn-next-q" id="btnNextQ" onclick="nextQuestion()">
+        ${qIndex<QUIZ_LEN-1?'Siguiente pregunta ▶':'Ver resultados 🏆'}
+      </button>
+    </div>`;
+}
+
+function escQ(s){ return s.replace(/'/g,"&#39;").replace(/"/g,"&quot;"); }
+
+function getOptions(correct, field){
+  const pool = shuffle([...VOCAB].filter(w=>w[field]!==correct)).slice(0,3).map(w=>w[field]);
+  return shuffle([correct,...pool]);
+}
+
+function checkAnswer(btn, selected, correct){
+  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  const fb = document.getElementById('qFeedback');
+  if(selected===correct){
+    btn.classList.add('correct');
+    fb.textContent='✅ ¡Correcto! Excelente.';
+    fb.className='quiz-feedback ok show';
+    qOk++;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.opt-btn').forEach(b=>{
+      if(b.textContent===correct) b.classList.add('correct');
+    });
+    fb.textContent=`❌ Incorrecto. La respuesta es: ${correct}`;
+    fb.className='quiz-feedback fail show';
+    qFail++;
+  }
+  document.getElementById('btnNextQ').classList.add('show');
+  updateQStats();
+}
+
+function nextQuestion(){
+  qIndex++;
+  updateQStats();
+  renderQuestion();
+}
+
+function renderResult(container){
+  const pct = Math.round(qOk/QUIZ_LEN*100);
+  let emoji='😊', msg='¡Sigue practicando!';
+  if(pct>=90){ emoji='🏆'; msg='¡Resultado sobresaliente! Estás listo para el ICFES.'; }
+  else if(pct>=70){ emoji='👍'; msg='¡Muy bien! Un poco más de práctica y lo lograrás.'; }
+  else if(pct>=50){ emoji='💪'; msg='Vas por buen camino. Revisa las categorías y vuelve a intentarlo.'; }
+
+  container.innerHTML = `
+    <div class="quiz-result">
+      <div class="result-emoji">${emoji}</div>
+      <div class="result-title">Resultado del Quiz</div>
+      <div class="result-score">${qOk} / ${QUIZ_LEN}</div>
+      <div style="font-size:1.1rem;font-weight:900;color:var(--azul)">${pct}%</div>
+      <div class="result-msg">${msg}</div>
+      <button class="btn btn-restart" onclick="startQuiz()">🔄 Nuevo Quiz</button>
+    </div>`;
+}
+
+// ════════════════════════════════════════════════════════
+//  UTILS
+// ════════════════════════════════════════════════════════
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+</script>
+</body>
+</html>
