@@ -22,39 +22,48 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
+  /* ── LAYOUT FIJO PARA IFRAME / MÓVIL ── */
+  html, body {
+    height: 100%; overflow: hidden;
     font-family: 'Nunito', sans-serif;
     background: var(--fondo);
     color: var(--gris);
-    min-height: 100vh;
+  }
+  .app-wrapper {
+    display: flex; flex-direction: column;
+    height: 100vh; overflow: hidden;
+  }
+  .app-fixed { flex-shrink: 0; }
+  .app-content {
+    flex: 1; overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* ── HEADER ── */
   header {
     background: linear-gradient(135deg, var(--azul) 0%, #005599 100%);
     color: #fff;
-    padding: 18px 16px 14px;
+    padding: 8px 16px 7px;
     text-align: center;
-    position: sticky; top: 0; z-index: 100;
     box-shadow: 0 3px 16px rgba(0,0,0,.25);
   }
-  .header-logo { font-size: .68rem; letter-spacing: .08em; opacity: .75; text-transform: uppercase; }
-  header h1 { font-size: 1.35rem; font-weight: 900; line-height: 1.2; }
+  .header-logo { font-size: .58rem; letter-spacing: .08em; opacity: .75; text-transform: uppercase; }
+  header h1 { font-size: 1rem; font-weight: 900; line-height: 1.2; }
   header h1 span { color: var(--naranja); }
-  .header-sub { font-size: .75rem; opacity: .8; margin-top: 2px; }
+  .header-sub { font-size: .62rem; opacity: .8; margin-top: 1px; }
   .badge-icfes {
-    display: inline-block; margin-top: 6px;
+    display: inline-block; margin-top: 3px;
     background: var(--naranja); color: var(--azul);
-    font-weight: 900; font-size: .7rem; letter-spacing: .1em;
-    padding: 2px 10px; border-radius: 20px; text-transform: uppercase;
+    font-weight: 900; font-size: .6rem; letter-spacing: .1em;
+    padding: 1px 7px; border-radius: 20px; text-transform: uppercase;
   }
 
   /* ── STATS BAR ── */
   .stats-bar {
     background: var(--azul);
-    color: #fff; font-size: .78rem;
-    display: flex; justify-content: center; gap: 20px;
-    padding: 6px 16px;
+    color: #fff; font-size: .72rem;
+    display: flex; justify-content: center; gap: 14px;
+    padding: 4px 16px;
     border-bottom: 3px solid var(--naranja);
   }
   .stat-item { display: flex; align-items: center; gap: 4px; }
@@ -69,7 +78,7 @@
   .nav-tabs::-webkit-scrollbar { display: none; }
   .tab-btn {
     flex: 1; min-width: 80px;
-    padding: 12px 8px; border: none; background: none; cursor: pointer;
+    padding: 9px 8px; border: none; background: none; cursor: pointer;
     font-family: 'Nunito', sans-serif; font-weight: 700; font-size: .82rem;
     color: var(--gris); border-bottom: 3px solid transparent;
     transition: all .2s; white-space: nowrap;
@@ -83,9 +92,9 @@
   /* ── CONTROLS ── */
   .controls {
     background: var(--blanco);
-    padding: 12px 14px;
+    padding: 8px 12px;
     border-bottom: 1px solid var(--borde);
-    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
   }
   .search-wrap {
     flex: 1; min-width: 180px; position: relative;
@@ -370,7 +379,8 @@
 </style>
 </head>
 <body>
-
+<div class="app-wrapper">
+<div class="app-fixed">
 <header>
   <div class="header-logo">I.E. José María Herrán · Sede Paulina Puerta</div>
   <h1>📚 Vocabulario <span>B1</span> – Grado 11°</h1>
@@ -400,6 +410,9 @@
   </select>
   <span class="count-badge" id="countBadge">0 palabras</span>
 </div>
+</div><!-- /app-fixed -->
+
+<div class="app-content">
 
 <!-- LISTA -->
 <section id="secLista">
@@ -460,6 +473,8 @@
   Hecho con ♥️ por <strong>Jorge MORENO</strong> &nbsp;|&nbsp;
   I.E. José María Herrán · Microcentro Forjadores de Sueños · Ciudad Bolívar, Antioquia
 </footer>
+</div><!-- /app-content -->
+</div><!-- /app-wrapper -->
 
 <script>
 // ════════════════════════════════════════════════════════
